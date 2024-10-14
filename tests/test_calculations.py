@@ -41,13 +41,13 @@ def test_get_latest():
     else:
         assert latest.a == Decimal('20') and latest.b == Decimal('3')
 
-def test_find_by_operation():
+def test_find_by_operation(setup_calculations):
     """Test finding calculations in the history by operation type."""
     add_operations = Calculations.find_by_operation("add")
-    assert len(add_operations) >= 1
+    assert len(add_operations) >= 1, "No addition operations found in history"
 
     subtract_operations = Calculations.find_by_operation("subtract")
-    assert len(subtract_operations) >= 1
+    assert len(subtract_operations) >= 1, "No subtraction operations found in history"
 
 def test_get_latest_with_empty_history():
     """Test getting the latest calculation when the history is empty."""
