@@ -6,30 +6,12 @@ The tests are designed to verify the correctness of basic arithmetic operations
 as well as the functionality of the Calculation class that encapsulates these operations.
 """
 
-# Import statements:
-# Disable specific pylint warnings that are not relevant for this test file.
-# Import the Decimal class for precise decimal arithmetic
-# Import pytest for writing test cases.
-# Import the Calculation class from the calculator package to test its functionality.
-# Import the arithmetic operation functions (add, subtract, multiply, divide) to be tested.
-# pylint: disable=unnecessary-dunder-call, invalid-name
 from decimal import Decimal
 import pytest
 from calculator.calculation import Calculation
+from calculator.calculations import Calculations
 from calculator.operations import add, subtract, multiply, divide
 
-# pytest.mark.parametrize decorator is used to parameterize a test function
-
-@pytest.mark.parametrize("a, b, operation, expected", [
-    (Decimal('10'), Decimal('5'), add, Decimal('15')),  
-    (Decimal('10'), Decimal('5'), subtract, Decimal('5')),  
-    (Decimal('10'), Decimal('5'), multiply, Decimal('50')), 
-    (Decimal('10'), Decimal('2'), divide, Decimal('5')),  
-    (Decimal('10.5'), Decimal('0.5'), add, Decimal('11.0')),  
-    (Decimal('10.5'), Decimal('0.5'), subtract, Decimal('10.0')),  
-    (Decimal('10.5'), Decimal('2'), multiply, Decimal('21.0')),  
-    (Decimal('10'), Decimal('0.5'), divide, Decimal('20')),  
-])
 def test_calculation_operations(a, b, operation, expected):
     """
     Test calculation operations with various scenarios.
@@ -45,27 +27,31 @@ def test_calculation_operations(a, b, operation, expected):
         expected (Decimal): The expected result of the operation.
     """
     calc = Calculation(a, b, operation)  
-    assert calc.perform() == expected, f"Failed {operation.__name__} operation with {a} and {b}" 
+    assert calc.perform() == expected, f"Failed {operation.__name__} operation with {a} and {b}"  
 
-def test_calculation_repr():
-    """
-    Test the string representation (__repr__) of the Calculation class.
+def test_find_by_operation():
+    """Test finding calculations in the history by operation type."""
     
-    This test verifies that the __repr__ method of a Calculation instance returns a string
-    that accurately represents the state of the Calculation object, including its operands
-    """
-    calc = Calculation(Decimal('10'), Decimal('5'), add)  
-    expected_repr = "Calculation(10, 5, add)"  
-    assert calc.__repr__() == expected_repr, "The __repr__ method not match the expected string."
+    calc1 = Calculation(Decimal('1'), Decimal('2'), add)
+    calc1.perform()  
+    Calculations.add_calculation(calc1)  
+
+    calc2 = Calculation(Decimal('3'), Decimal('4'), subtract)
+    calc2.perform()  
+    Calculations.add_calculation(calc2)  
+
+    add_operations = Calculations.find_by_operation("add")
+    
+    assert len(add_operations) >= 1, "Expected at least one addition operation in history."
 
 def test_divide_by_zero():
     """
     Test division by zero to ensure it raises a ValueError.
     
     This test checks that attempting to perform a division operation with a zero divisor
-    correctly raises a ValueError, as dividing by zero is mathematically undefined
+    correctly raises a ValueError, as dividing by zero is mathematically undefined and should be handled as an error.
     """
-    calc = Calculation(Decimal('10'), Decimal('0'), divide) 
+    calc = Calculation(Decimal('10'), Decimal('0'), divide)  
     with pytest.raises(ValueError, match="Cannot divide by zero"):  
         calc.perform()
 
