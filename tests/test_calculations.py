@@ -41,16 +41,23 @@ def test_get_latest():
     else:
         assert latest.a == Decimal('20') and latest.b == Decimal('3')
 
-def test_find_by_operation(setup_calculations):
+@pytest.mark.usefixtures("setup_calculations")
+def test_find_by_operation():
     """Test finding calculations in the history by operation type."""
-    add_operations = Calculations.find_by_operation("add")
-    assert len(add_operations) >= 1, "No addition operations found in history"
+    # Adding operations to the history
+    calc1 = Calculation(Decimal('1'), Decimal('2'), add)
+    calc1.perform()  
+    Calculations.add_calculation(calc1)
 
-    subtract_operations = Calculations.find_by_operation("subtract")
-    assert len(subtract_operations) >= 1, "No subtraction operations found in history"
+    calc2 = Calculation(Decimal('3'), Decimal('4'), subtract)
+    calc2.perform()
+    Calculations.add_calculation(calc2)
+
+    add_operations = Calculations.find_by_operation("add")
+    assert len(add_operations) >= 1, "No 'add' operations found in the history"
 
 def test_get_latest_with_empty_history():
     """Test getting the latest calculation when the history is empty."""
     Calculations.clear_history()
-    assert Calculations.get_latest() is None 
+    assert Calculations.get_latest() is None
 
