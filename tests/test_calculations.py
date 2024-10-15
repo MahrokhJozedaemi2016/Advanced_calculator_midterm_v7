@@ -20,6 +20,7 @@ def setup_calculations():
     Calculations.add_calculation(Calculation(Decimal('10'), Decimal('5'), add))
     Calculations.add_calculation(Calculation(Decimal('20'), Decimal('3'), subtract))
     yield
+    # Cleanup: remove the file after test completes
     if os.path.exists(history_file_path):
         os.remove(history_file_path)
 
@@ -32,25 +33,24 @@ def test_add_calculation():
 def test_get_history():
     """Test retrieving the entire calculation history."""
     Calculations.clear_history()
-    assert len(Calculations.get_history()) == 0, "History does not contain number of calculations"
+    assert len(Calculations.get_history()) == 0, "History does not contain the expected number of calculations"
 
 def test_clear_history():
     """Test clearing the entire calculation history."""
     Calculations.clear_history()
-    assert len(Calculations.get_history()) == 0, "History was not cleared"
+    assert len(Calculations.get_history()) == 0, "History was not cleared successfully"
 
 def test_get_latest():
     """Test getting the latest calculation from the history."""
-    latest = Calculations.get_latest() 
+    latest = Calculations.get_latest()
     if latest is None:
         assert latest is None
     else:
-        assert latest.a == Decimal('20') and latest.b == Decimal('3')
+        assert latest.a == Decimal('20') and latest.b == Decimal('3'), "Latest calculation does not match expected values"
 
 @pytest.mark.usefixtures("setup_calculations")
 def test_find_by_operation():
     """Test finding calculations in the history by operation type."""
-    # Adding operations to the history
     calc1 = Calculation(Decimal('1'), Decimal('2'), add)
     calc1.perform()  
     Calculations.add_calculation(calc1)
@@ -65,11 +65,11 @@ def test_find_by_operation():
 def test_get_latest_with_empty_history():
     """Test getting the latest calculation when the history is empty."""
     Calculations.clear_history()
-    assert Calculations.get_latest() is None
+    assert Calculations.get_latest() is None, "Expected no latest calculation with empty history"
 
 def test_save_history(setup_calculations):
     """Test saving the calculation history to a file."""
-    Calculations.save_history(file_path=history_file_path)
+    Calculations.save_history(file_name=history_file_path)
     assert os.path.exists(history_file_path), "Failed to save the history to a file"
 
 def test_load_history():
@@ -78,16 +78,19 @@ def test_load_history():
     Calculations.clear_history()
     calc = Calculation(Decimal('10'), Decimal('5'), add)
     Calculations.add_calculation(calc)
-    Calculations.save_history(file_path=history_file_path)
+    Calculations.save_history(file_name=history_file_path)
 
     # Clear history and load from the file
     Calculations.clear_history()
-    Calculations.load_history(file_path=history_file_path)
-    assert len(Calculations.get_history()) > 0, "Failed to load the history from the file"
+    Calculations.load_history(file_name=history_file_path)
+    loaded_history = Calculations.get_history()
+    assert len(loaded_history) > 0, "Failed to load the history from the file"
+    assert loaded_history[0].a == Decimal('10') and loaded_history[0].b == Decimal('5'), \
+        "Loaded calculation does not match the saved calculation"
 
 def test_delete_history_file():
     """Test deleting the history file."""
     # Create a file to delete
-    Calculations.save_history(file_path=history_file_path)
-    Calculations.delete_history_file(file_path=history_file_path)
+    Calculations.save_history(file_name=history_file_path)
+    Calculations.delete_history_file(file_name=history_file_path)
     assert not os.path.exists(history_file_path), "Failed to delete the history file"
