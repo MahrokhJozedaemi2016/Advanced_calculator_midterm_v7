@@ -36,13 +36,29 @@ class Calculations:
     @classmethod
     def save_history(cls, file_name='calculation_history.csv'):
         """Save the history of calculations to a CSV file."""
-        df = pd.DataFrame([{
-            'a': str(calc.a),
-            'b': str(calc.b),
-            'operation': calc.operation.__name__,
-            'result': str(calc.perform())
-        } for calc in cls.history])
-        
+        history_data = []
+        for calc in cls.history:
+            if hasattr(calc, 'execute'):
+                # If `calc` is a command object, use `execute`
+                result = calc.execute()
+                operation_name = calc.__class__.__name__.replace('Command', '').lower()
+            elif hasattr(calc, 'perform'):
+                # If `calc` is a Calculation object, use `perform`
+                result = calc.perform()
+                operation_name = calc.operation.__name__
+            else:
+                # Handle unexpected types
+                result = None
+                operation_name = "unknown"
+
+            history_data.append({
+                'a': calc.a,
+                'b': calc.b,
+                'operation': operation_name,
+                'result': result
+            })
+
+        df = pd.DataFrame(history_data)
         df.to_csv(file_name, index=False)
         print(f"Calculation history saved to {file_name}")
 
@@ -55,14 +71,14 @@ class Calculations:
             'multiply': multiply,
             'divide': divide
         }
-        
+
         if not os.path.exists(file_name):
             print(f"No history file found with name '{file_name}'.")
             return
 
-        df = pd.read_csv(file_name)
+        data = pd.read_csv(file_name)
         cls.history.clear()
-        for _, row in df.iterrows():
+        for _, row in data.iterrows():
             operation_func = operation_mappings.get(row['operation'])
             if operation_func:
                 calculation = Calculation(Decimal(row['a']), Decimal(row['b']), operation_func)
