@@ -20,6 +20,9 @@ def display_menu():
     print("  divide: Divide two numbers")
     print("  history: View calculation history")
     print("  clear_history: Clear calculation history")
+    print("  save_history: Save history to a file")
+    print("  load_history: Load history from a file")
+    print("  delete_history_file: Delete the history file")
     print("  exit: Exit the calculator")
 
 def calculate_and_store(a, b, operation_name):
@@ -88,6 +91,15 @@ def interactive_calculator():
             # Clear the calculation history
             Calculations.clear_history()
             print("Calculation history cleared.")
+        elif user_input == 'save_history':
+            # Save the calculation history to a file
+            Calculations.save_history()
+        elif user_input == 'load_history':
+            # Load the calculation history from a file
+            Calculations.load_history()
+        elif user_input == 'delete_history_file':
+            # Delete the calculation history file
+            Calculations.delete_history_file()
         elif user_input in operation_mappings:
             # If the user input matches an operation, prompt for two numbers
             a, b = prompt_for_numbers(user_input)
@@ -98,4 +110,4 @@ def interactive_calculator():
             print("Invalid input. Please type 'menu' to see the available commands.")
 
 if __name__ == "__main__":
-    interactive_calculator()                     
+    interactive_calculator()
