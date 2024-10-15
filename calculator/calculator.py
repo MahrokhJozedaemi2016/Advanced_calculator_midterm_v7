@@ -1,11 +1,5 @@
 import importlib
-import multiprocessing
 from calculator.commands import Command  # Import the Command class for command-based operations
-
-# Define a top-level function that can be used in multiprocessing
-def execute_command(command: Command, result_queue):
-    result = command.execute()
-    result_queue.put(result)  # Put the result into the result queue
 
 class Calculator:
     def __init__(self):
@@ -17,17 +11,6 @@ class Calculator:
         result = command.execute()  # Execute the provided command
         self.history.append(command)  # Store the command in history
         return result  # Return the result of the command
-
-    def compute_with_multiprocessing(self, command: Command):
-        """Execute a command using multiprocessing and print the result."""
-        result_queue = multiprocessing.Queue()  # Create a queue to store the result
-        process = multiprocessing.Process(target=execute_command, args=(command, result_queue))
-        process.start()
-        process.join()  # Wait for the process to finish
-
-        # Get and print the result
-        result = result_queue.get()
-        print(f"Result of {command.__class__.__name__}: {result}")
 
     def load_plugin(self, plugin_name: str):
         """Dynamically load a plugin by its name from the plugins folder."""
