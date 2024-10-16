@@ -5,7 +5,7 @@ The project currently supports core arithmetic operations (addition, subtraction
 ### Design Patterns Applied So Far
 
 1. **Command Pattern**:
-   **Purpose**: Encapsulates each arithmetic operation (Add, Subtract, Multiply, Divide) as a command, allowing for easy addition o   f new operations.
+   **Purpose**: Encapsulates each arithmetic operation (Add, Subtract, Multiply, Divide) as a command, allowing for easy addition of new operations.
    **.Aplication**: Each arithmetic command inherits from a Command base class, ensuring a consistent interface. The Calculator clas   s uses these commands, promoting clean separation of concerns and enabling easy extensibility.
    
 2. **Plugin System with Factory Pattern**
@@ -14,12 +14,11 @@ The project currently supports core arithmetic operations (addition, subtraction
 
 3. **Facade Pattern**
 **Purpose**:Simplifies interactions with complex data handling, especially with additional data management features introduced in this step, such as using Pandas for history operations.
-**Application**:The Calculations class acts as a Facade for the history management, offering a simplified interface for storing, loading, saving, and deleting calculation records. This implementation isolates Pandas-specific code within the class, making the interface cleaner and easier to use.
-
+**Application**:The Calculations class serves as a Facade for history management, offering a simplified interface for storing, loading, saving, and deleting calculation records. This implementation isolates Pandas-specific code within the class, creating a cleaner and more user-friendly interface.
 
 4. **Encapsulation and Modular Design**
-   **Purpose**: Segregates different aspects of functionality into specific modules, following principles of modularity and encapsulation.
-   **Application**: 
+ **Purpose**: Segregates different aspects of functionality into specific modules, following modularity and encapsulation principles.
+**Application**: 
    - The Calculator class encapsulates command execution and history management.
    - The Calculations class manages the history of calculations, isolating history operations from arithmetic logic.
    - The main.py file provides a single entry point to the program, encapsulating REPL interactions and exception handling.
@@ -29,18 +28,21 @@ The project currently supports core arithmetic operations (addition, subtraction
    **Application**: Using conftest.py, parameterized testing is integrated with the pytest framework, allowing tests to dynamically generate test cases with Faker. This approach ensures a diverse set of test cases, making testing more comprehensive and adaptable to future changes.
 
 6. **Error Handling and Input Validation**
-   **Purpose**:nsures the robustness of the REPL by handling various types of user errors (e.g., invalid numbers, division by zero, unknown operations).
-   **.Applicatiom**:Error handling is encapsulated within the main.py REPL interface, promoting modularity and separation of concerns by isolating exception management in a centralized location.
+**Purpose**:Ensures the robustness of the REPL by handling various user errors (e.g., invalid numbers, division by zero, unknown operations)
+**.Application**:Error handling is centralized within the main.py REPL interface, which promotes modularity and separates exception management into one location.
 
 ## Planned Patterns
 
 **Singleton Pattern**
-**.Purpose**:Manage global configurations, particularly when logging or environment-specific settings are implemented.
+**.Purpose**:Manage global configurations, particularly for logging and environment-specific settings.
 **.Future application**:This pattern will ensure that only one instance of a configuration object exists, maintaining consistency across the application.
 
 **Strategy Pattern**
-**.Purpose**:Allow different algorithms or strategies for handling specific calculations or data management tasks.
+**.purpose**:Allow different algorithms or strategies for handling specific calculations or data management tasks.
 **.Future application**:This pattern will enable users to select between different strategies, such as basic calculations or extended statistical functions.
 
-Detailed descriptions and code examples for each additional pattern will be added as they are implemented in future steps. This documentation will continue to evolve as more patterns are applied to improve functionality and maintainability.
+## Concluding Note
+This documentation provides an overview of the design patterns implemented in the Advanced Python Calculator project and outlines patterns planned for future development. As the project evolves, additional design patterns will be introduced to further enhance its functionality, scalability, and maintainability. Detailed descriptions and code examples for each new pattern will be added to this document as they are applied. By following these best practices in software design, this project aims to serve as a comprehensive example of clean code principles, modular architecture, and adaptable design.
+
+This document will be updated continuously to reflect the ongoing enhancements and improvements, ensuring that the project remains a reliable and extensible tool for users and developers alike.
 
