@@ -15,7 +15,6 @@ class AddCommand(Command):
         return result
 
     def __repr__(self):
-        # Include the result in the representation for testing consistency
         return f"Add {self.a} and {self.b} = {self.execute()}"
 
 class SubtractCommand(Command):
@@ -45,20 +44,28 @@ class MultiplyCommand(Command):
         return f"Multiply {self.a} and {self.b} = {self.execute()}"
 
 class DivideCommand(Command):
-    def __init__(self, a, b):
+    def __init__(self, a, b, strategy=None):
         self.a = a
         self.b = b
+        self.strategy = strategy if strategy else self.default_division
 
     def execute(self):
         if self.b == 0:
             logging.error("Attempted to divide by zero: %s / %s", self.a, self.b)
             raise ValueError("Cannot divide by zero.")
-        result = self.a / self.b
-        logging.debug("Executing DivideCommand: %s / %s = %s", self.a, self.b, result)
+        result = self.strategy(self.a, self.b)
+        logging.debug("Executing DivideCommand with strategy %s: %s / %s = %s", self.strategy.__name__, self.a, self.b, result)
         return result
 
+    @staticmethod
+    def default_division(a, b):
+        return a / b
+
+    @staticmethod
+    def integer_division(a, b):
+        return a // b
+
     def __repr__(self):
-        # Ensure divide-by-zero is properly handled in the repr
         try:
             result = self.execute()
             return f"Divide {self.a} by {self.b} = {result}"
