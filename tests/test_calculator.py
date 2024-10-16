@@ -3,7 +3,7 @@ from calculator.calculator import Calculator
 from calculator.commands import AddCommand, SubtractCommand, MultiplyCommand, DivideCommand
 
 # Fixture to set up a calculator instance before each test
-@pytest.fixture
+@pytest.fixture(scope="module")
 def calc():
     return Calculator()
 
@@ -62,3 +62,28 @@ def test_create_command_failure():
     calc = Calculator()
     with pytest.raises(ValueError, match="Plugin not found: non_existent_plugin"):
         calc.create_command('non_existent_plugin', 2, 3)  # Test for plugin that hasn’t been loaded
+
+# Singleton Pattern Test
+def test_singleton_instance():
+    calc1 = Calculator()
+    calc2 = Calculator()
+    assert calc1 is calc2, "Calculator instances are not the same; Singleton pattern not implemented correctly."
+
+# Strategy Pattern Tests
+def test_divide_command_default(calc):
+    # Test default division
+    divide_command = DivideCommand(10, 3)
+    result = divide_command.execute()
+    assert result == pytest.approx(3.3333, 0.0001), "Default division result is incorrect"
+
+def test_divide_command_integer(calc):
+    # Test integer division strategy
+    divide_command = DivideCommand(10, 3, strategy=DivideCommand.integer_division)
+    result = divide_command.execute()
+    assert result == 3, "Integer division result is incorrect"
+
+def test_divide_by_zero_integer(calc):
+    # Test divide by zero with integer division strategy
+    divide_command = DivideCommand(10, 0, strategy=DivideCommand.integer_division)
+    with pytest.raises(ValueError, match="Cannot divide by zero"):
+        divide_command.execute()
