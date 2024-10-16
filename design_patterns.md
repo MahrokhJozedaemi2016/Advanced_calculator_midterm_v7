@@ -16,7 +16,14 @@ The project currently supports core arithmetic operations (addition, subtraction
 **Purpose**:Simplifies interactions with complex data handling, especially with additional data management features introduced in this step, such as using Pandas for history operations.
 **Application**:The Calculations class serves as a Facade for history management, offering a simplified interface for storing, loading, saving, and deleting calculation records. This implementation isolates Pandas-specific code within the class, creating a cleaner and more user-friendly interface.
 
-4. **Encapsulation and Modular Design**
+4. **Singleton Pattern**
+**Purpose**: Ensures only one instance of the Calculator class exists, providing a consistent calculator instance across the application.
+**Application**: The Singleton Pattern is implemented by overriding the __new__ method in the Calculator class to prevent multiple instances from being created. This approach provides centralized state management for calculation history and other features.
+
+5. **Strategy Pattern**
+**Purpose**: Allows the application to select from multiple division algorithms or strategies, enhancing flexibility.
+**Application**: The DivideCommand class employs the Strategy Pattern by allowing users to select between standard floating-point division and integer division. This approach enables different division behaviors to be used without changing the class’s core logic
+6. **Encapsulation and Modular Design**
  **Purpose**: Segregates different aspects of functionality into specific modules, following modularity and encapsulation principles.
 **Application**: 
    - The Calculator class encapsulates command execution and history management.
@@ -31,18 +38,7 @@ The project currently supports core arithmetic operations (addition, subtraction
 **Purpose**:Ensures the robustness of the REPL by handling various user errors (e.g., invalid numbers, division by zero, unknown operations)
 **.Application**:Error handling is centralized within the main.py REPL interface, which promotes modularity and separates exception management into one location.
 
-## Planned Patterns
-
-**Singleton Pattern**
-**.Purpose**:Manage global configurations, particularly for logging and environment-specific settings.
-**.Future application**:This pattern will ensure that only one instance of a configuration object exists, maintaining consistency across the application.
-
-**Strategy Pattern**
-**.purpose**:Allow different algorithms or strategies for handling specific calculations or data management tasks.
-**.Future application**:This pattern will enable users to select between different strategies, such as basic calculations or extended statistical functions.
-
 ## Concluding Note
 This documentation provides an overview of the design patterns implemented in the Advanced Python Calculator project and outlines patterns planned for future development. As the project evolves, additional design patterns will be introduced to further enhance its functionality, scalability, and maintainability. Detailed descriptions and code examples for each new pattern will be added to this document as they are applied. By following these best practices in software design, this project aims to serve as a comprehensive example of clean code principles, modular architecture, and adaptable design.
 
 This document will be updated continuously to reflect the ongoing enhancements and improvements, ensuring that the project remains a reliable and extensible tool for users and developers alike.
-

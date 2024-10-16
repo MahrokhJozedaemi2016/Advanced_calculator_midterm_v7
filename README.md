@@ -4,7 +4,7 @@ This project is a command-line calculator designed for educational purposes, sho
 
 ## Project Overview
 
-The calculator supports core arithmetic operations (addition, subtraction, multiplication, and division), manages a history of calculations, and includes enhanced error handling for invalid inputs and unknown operations. The project now includes a fully interactive REPL (Read-Eval-Print Loop) interface as well as extended logging capabilities configurable by environment variables. It also uses the Faker library for generating random test data and Pandas for loading, saving, clearing, and deleting calculation history.
+The calculator supports core arithmetic operations (addition, subtraction, multiplication, and division), manages a history of calculations, and includes enhanced error handling for invalid inputs and unknown operations. The project now includes a fully interactive REPL (Read-Eval-Print Loop) interface as well as extended logging capabilities configurable by environment variables. It also uses the Faker library for generating random test data and Pandas for loading, saving, clearing, and deleting calculation history.The project now also implements Singleton and Strategy Patterns to further enhance its scalability, flexibility, and maintainability. The Singleton Pattern is used to ensure a single instance of the Calculator class, while the Strategy Pattern allows for multiple division strategies, providing more robust and adaptable functionality.
 
 ## Features (Current Step)
 
@@ -20,6 +20,8 @@ The calculator supports core arithmetic operations (addition, subtraction, multi
 - **Object-Oriented Structure**: Implements classes for each component, with methods for encapsulation and modularity.
 - **Test Coverage**: Unit tests for all implemented functions using Pytest, with at least 100% coverage.
 - **Adherence to Design Principles**: Follows SOLID, DRY, GRASP, and Separation of Concerns principles for code organization and maintainability.
+- **Singleton Pattern**: Ensures that only a single instance of the Calculator class exists, allowing consistent access to the calculator instance throughout the application.
+- **Strategy Pattern**: Supports multiple strategies for division, enabling selection between standard floating-point and integer division as needed for more flexible operation.
 
 ## Project Structure
 
