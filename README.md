@@ -110,20 +110,20 @@ Once inside the REPL, use the following commands to manage calculation history:
 To deactivate the virtual environment, use:
 ```bash
 deactivate
-
+```
 
 ## Environment Variables
 This project utilizes environment variables for flexible configuration, which you can set up in a .env file at the project root. The following variables are available:
 - ENVIRONMENT: Specifies the environment mode. Options are:
 
-- development – Logs output to both console and file for easy debugging.
-- production – Logs output only to a file to avoid cluttering the console.
-- LOG_LEVEL: Specifies the logging level (e.g., DEBUG, INFO, WARNING). In development, this is typically set to DEBUG for detailed output, while in production, it might be set to INFO or WARNING to reduce verbosity.
-- LOG_FILE: Specifies the file where logs are saved (e.g., app.log). In both environments, logs are written to this file.
+- **development** – Logs output to both console and file for easy debugging.
+- **production** – Logs output only to a file to avoid cluttering the console.
+- **LOG_LEVEL**: Specifies the logging level (e.g., DEBUG, INFO, WARNING). In development, this is typically set to DEBUG for detailed output, while in production, it might be set to INFO or WARNING to reduce verbosity.
+- **LOG_FILE**: Specifies the file where logs are saved (e.g., app.log). In both environments, logs are written to this file.
 
 ## Environment Behavior
-- Development Mode: In this mode, logs are displayed in both the console and the specified log file. This helps with debugging by providing real-time feedback on application behavior.
-- Production Mode: Logs are recorded only in the specified log file, which keeps the console output clean and is suitable for deployment scenarios.
+- **Development Mode**: In this mode, logs are displayed in both the console and the specified log file. This helps with debugging by providing real-time feedback on application behavior.
+- **Production Mode**: Logs are recorded only in the specified log file, which keeps the console output clean and is suitable for deployment scenarios.
 
 Be sure to include your .env file in .gitignore to prevent it from being tracked in version control, as it may contain sensitive information.
 
