@@ -1,5 +1,6 @@
 import pytest
-from main import calculate_and_store
+from main import CalculatorApp
+
 @pytest.mark.parametrize("a_string, b_string, operation_string, expected_string", [
     ("5", "3", 'add', "The result of add between 5 and 3 is 8"),
     ("10", "2", 'subtract', "The result of subtract between 10 and 2 is 8"),
@@ -13,6 +14,7 @@ from main import calculate_and_store
 ])
 def test_calculate_and_store(a_string, b_string, operation_string, expected_string, capsys):
     """Test the calculate_and_store function with various inputs."""
-    calculate_and_store(a_string, b_string, operation_string)  # Use the correct function
+    app = CalculatorApp()  # Instantiate the CalculatorApp
+    app.calculate_and_store(a_string, b_string, operation_string)  # Call the method on the instance
     captured = capsys.readouterr().out.strip().rstrip(".")
     assert captured == expected_string.rstrip(".")
