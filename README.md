@@ -4,14 +4,15 @@ This project is a command-line calculator designed for educational purposes, sho
 
 ## Project Overview
 
-The calculator supports core arithmetic operations (addition, subtraction, multiplication, and division), manages a history of calculations, and includes enhanced error handling for invalid inputs and unknown operations. A main.py entry point provides a user-friendly command-line interface. The project also utilizes the Faker library for generating random test data, and now includes functionality to load, save, clear, and delete calculation history using Pandas
+The calculator supports core arithmetic operations (addition, subtraction, multiplication, and division), manages a history of calculations, and includes enhanced error handling for invalid inputs and unknown operations. The project now includes a fully interactive REPL (Read-Eval-Print Loop) interface as well as extended logging capabilities configurable by environment variables. It also uses the Faker library for generating random test data and Pandas for loading, saving, clearing, and deleting calculation history.
 
 ## Features (Current Step)
 
-- **Basic Arithmetic Operations**:Supports addition, subtraction, multiplication, and division.
-- **Calculation History**: Stores a history of calculations and allows retrieval, saving, loading, clearing, and deletion via the REPL interface.
-- **Exception Handling**: Manages division by zero, invalid inputs, and unknown operations with appropriate error messages.
-- **Faker Library Integration**: Uses Faker to generate random test data for enhanced testing.
+- **Basic Arithmetic Operations**:Supports addition, subtraction, multiplication, and division
+- **Calculation History**:Stores calculation history and allows retrieval, saving, loading, clearing, and deletion within the REPL interface.
+- **Enhanced Logging**:Uses environment-specific logging configurations (e.g., logging only to a file in production and to both console and file in development).
+- **Exception Handling**: Manages errors for division by zero, invalid inputs, and unknown operations with appropriate error messages.
+- **Faker Library Integration**:Uses Faker to generate random test data for enhanced testing. 
 - **Parameterized Testing**: Supports dynamic test case generation with a custom --num_records option for Pytest.
 - **Command-Line Interface (REPL)**: Provides an interactive interface for users to input commands, perform calculations, view history, and clear history.
 - **Plugin System**: Allows the addition of new commands dynamically, enabling seamless integration of new features without modifying the main codebase.
@@ -77,22 +78,29 @@ To set up and run this project, follow these steps:
     ```bash
     pip install -r requirements.txt
     ```
+4. Configure the Environment Variables:
+Create a .env file in the project root with environment-specific settings. For example:
+```bash
+ENVIRONMENT=development
+LOG_LEVEL=DEBUG
+LOG_FILE=app.log
+```
 
-4. **Run Tests**:
+5. **Run Tests**:
     ```bash
     pytest
     ```
 
-5. **Generate Test Records with Pytest**:
+6. **Generate Test Records with Pytest**:
     specify the number of records to generate with the `--num_records` option:
     ```bash
     pytest --num_records=100
     ```
-6. **Run the Interactive Calculator: Start the REPL interface**:
+7. **Run the Interactive Calculator: Start the REPL interface**:
    ```bash
    python3 main.py
    ```
-**Calculation History Management Commands**:
+8. **Calculation History Management Commands**:
 Once inside the REPL, use the following commands to manage calculation history:
 **.Save_history**: Saves the current history to a CSV file.
 **.load_history**: Loads calculation history from a CSV file.
@@ -103,6 +111,21 @@ To deactivate the virtual environment, use:
 ```bash
 deactivate
 
+
+## Environment Variables
+This project utilizes environment variables for flexible configuration, which you can set up in a .env file at the project root. The following variables are available:
+- ENVIRONMENT: Specifies the environment mode. Options are:
+
+- development – Logs output to both console and file for easy debugging.
+- production – Logs output only to a file to avoid cluttering the console.
+- LOG_LEVEL: Specifies the logging level (e.g., DEBUG, INFO, WARNING). In development, this is typically set to DEBUG for detailed output, while in production, it might be set to INFO or WARNING to reduce verbosity.
+- LOG_FILE: Specifies the file where logs are saved (e.g., app.log). In both environments, logs are written to this file.
+
+## Environment Behavior
+- Development Mode: In this mode, logs are displayed in both the console and the specified log file. This helps with debugging by providing real-time feedback on application behavior.
+- Production Mode: Logs are recorded only in the specified log file, which keeps the console output clean and is suitable for deployment scenarios.
+
+Be sure to include your .env file in .gitignore to prevent it from being tracked in version control, as it may contain sensitive information.
 
 ---
 
