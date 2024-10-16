@@ -10,6 +10,7 @@ The calculator supports core arithmetic operations (addition, subtraction, multi
 
 - **Basic Arithmetic Operations**:Supports addition, subtraction, multiplication, and division
 - **Calculation History**:Stores calculation history and allows retrieval, saving, loading, clearing, and deletion within the REPL interface.
+- **Advanced Data Handling with Pandas**: Utilizes Pandas for efficient data reading and writing to CSV files to manage calculation history.
 - **Enhanced Logging**:Uses environment-specific logging configurations (e.g., logging only to a file in production and to both console and file in development).
 - **Exception Handling**: Manages errors for division by zero, invalid inputs, and unknown operations with appropriate error messages.
 - **Faker Library Integration**:Uses Faker to generate random test data for enhanced testing. 
