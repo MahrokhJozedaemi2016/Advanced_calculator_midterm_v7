@@ -1,3 +1,8 @@
+"""
+Unit tests for the DivideCommand plugin.
+These tests ensure the correctness of the DivideCommand's execute method
+and the register function used for dynamic plugin loading.
+"""
 import pytest
 from calculator.plugins.divide_plugin import DivideCommand
 

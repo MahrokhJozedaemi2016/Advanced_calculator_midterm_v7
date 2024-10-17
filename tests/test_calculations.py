@@ -1,9 +1,14 @@
-'''My Calculator Test'''
+"""
+This module contains tests for the Calculations class and basic arithmetic operations.
+
+It verifies the functionality of the Calculations class, including adding calculations to history,
+retrieving the latest calculation, and managing the calculation history through saving, loading, and deleting.
+"""
 
 # pylint: disable=unnecessary-dunder-call, invalid-name
 from decimal import Decimal
-import pytest
 import os
+import pytest
 
 # Import Calculation and Calculations classes from the calculator package
 from calculator.calculation import Calculation
@@ -46,13 +51,14 @@ def test_get_latest():
     if latest is None:
         assert latest is None
     else:
-        assert latest.a == Decimal('20') and latest.b == Decimal('3'), "Latest calculation does not match expected values"
+        assert latest.value1 == Decimal('20') and latest.value2 == Decimal('3'), \
+            "Latest calculation does not match expected values"
 
 @pytest.mark.usefixtures("setup_calculations")
 def test_find_by_operation():
     """Test finding calculations in the history by operation type."""
     calc1 = Calculation(Decimal('1'), Decimal('2'), add)
-    calc1.perform()  
+    calc1.perform()
     Calculations.add_calculation(calc1)
 
     calc2 = Calculation(Decimal('3'), Decimal('4'), subtract)
@@ -67,7 +73,8 @@ def test_get_latest_with_empty_history():
     Calculations.clear_history()
     assert Calculations.get_latest() is None, "Expected no latest calculation with empty history"
 
-def test_save_history(setup_calculations):
+@pytest.mark.usefixtures("setup_calculations")
+def test_save_history():
     """Test saving the calculation history to a file."""
     Calculations.save_history(file_name=history_file_path)
     assert os.path.exists(history_file_path), "Failed to save the history to a file"
@@ -85,7 +92,7 @@ def test_load_history():
     Calculations.load_history(file_name=history_file_path)
     loaded_history = Calculations.get_history()
     assert len(loaded_history) > 0, "Failed to load the history from the file"
-    assert loaded_history[0].a == Decimal('10') and loaded_history[0].b == Decimal('5'), \
+    assert loaded_history[0].value1 == Decimal('10') and loaded_history[0].value2 == Decimal('5'), \
         "Loaded calculation does not match the saved calculation"
 
 def test_delete_history_file():

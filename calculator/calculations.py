@@ -1,3 +1,7 @@
+"""
+Module for managing a history of calculations and performing operations using Pandas.
+"""
+
 import os
 import logging
 from decimal import Decimal
@@ -7,6 +11,8 @@ from calculator.calculation import Calculation
 from calculator.operations import add, subtract, multiply, divide
 
 class Calculations:
+    """Manages a history of calculations and supports history storage and retrieval."""
+
     history: List[Calculation] = []  # Class-level attribute for storing calculation history
 
     @classmethod
@@ -33,9 +39,8 @@ class Calculations:
         if cls.history:
             logging.info("Retrieving the latest calculation.")
             return cls.history[-1]
-        else:
-            logging.warning("No calculations in history to retrieve.")
-            return None
+        logging.warning("No calculations in history to retrieve.")
+        return None
 
     @classmethod
     def find_by_operation(cls, operation_name: str) -> List[Calculation]:
@@ -60,8 +65,8 @@ class Calculations:
                     operation_name = "unknown"
 
                 history_data.append({
-                    'a': calc.a,
-                    'b': calc.b,
+                    'value1': calc.value1,
+                    'value2': calc.value2,
                     'operation': operation_name,
                     'result': result
                 })
@@ -69,7 +74,7 @@ class Calculations:
             df = pd.DataFrame(history_data)
             df.to_csv(file_name, index=False)
             logging.info("Calculation history saved to %s", file_name)
-        except Exception as e:
+        except (FileNotFoundError, IOError, pd.errors.EmptyDataError) as e:
             logging.error("Error saving calculation history to %s: %s", file_name, e)
 
     @classmethod
@@ -92,10 +97,10 @@ class Calculations:
             for _, row in data.iterrows():
                 operation_func = operation_mappings.get(row['operation'])
                 if operation_func:
-                    calculation = Calculation(Decimal(row['a']), Decimal(row['b']), operation_func)
+                    calculation = Calculation(Decimal(row['value1']), Decimal(row['value2']), operation_func)
                     cls.history.append(calculation)
             logging.info("Calculation history loaded from %s", file_name)
-        except Exception as e:
+        except (FileNotFoundError, IOError, pd.errors.EmptyDataError) as e:
             logging.error("Error loading calculation history from %s: %s", file_name, e)
 
     @classmethod
@@ -107,6 +112,5 @@ class Calculations:
                 logging.info("File '%s' has been deleted.", file_name)
             else:
                 logging.warning("File '%s' does not exist.", file_name)
-        except Exception as e:
+        except OSError as e:
             logging.error("Error deleting file '%s': %s", file_name, e)
-            

@@ -1,4 +1,8 @@
-import pytest
+"""
+Unit tests for the AddCommand plugin.
+These tests ensure the correctness of the AddCommand's execute method
+and the register function used for dynamic plugin loading.
+"""
 from calculator.plugins.add_plugin import AddCommand, register
 
 def test_add_command_execute():

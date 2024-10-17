@@ -1,3 +1,8 @@
+"""
+This module contains tests for the CalculatorApp class in the main application file.
+It tests the calculate_and_store function with various inputs to verify the expected output.
+"""
+
 import pytest
 from main import CalculatorApp
 

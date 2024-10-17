@@ -1,4 +1,8 @@
-import pytest
+"""
+Unit tests for the MultiplyCommand plugin.
+These tests ensure the correctness of the MultiplyCommand's execute method
+and the register function used for dynamic plugin loading.
+"""
 from calculator.plugins.multiply_plugin import MultiplyCommand, register
 
 def test_multiply_command_execute():

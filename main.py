@@ -1,3 +1,9 @@
+"""
+Main module for the interactive calculator application.
+
+This application provides a REPL interface for basic arithmetic operations and
+manages calculation history with support for plugins and logging.
+"""
 import os
 import logging
 from decimal import Decimal, InvalidOperation
@@ -10,6 +16,8 @@ from calculator.commands import AddCommand, SubtractCommand, MultiplyCommand, Di
 load_dotenv()
 
 class CalculatorApp:
+    """Application class for the interactive calculator with history management."""
+
     def __init__(self):
         self.environment = os.getenv("ENVIRONMENT", "development").lower()
         self.setup_logging()
@@ -22,21 +30,17 @@ class CalculatorApp:
         logging.info("CalculatorApp initialized in %s environment.", self.environment)
 
     def setup_logging(self):
-        # Remove existing logging handlers
+        """Set up logging configuration based on environment variables."""
         logging.getLogger().handlers = []
-
-        # Define logging file and level
         log_file = os.getenv("LOG_FILE", "app.log")
         log_level = os.getenv("LOG_LEVEL", "INFO").upper()
 
-        # File Handler for all environments
         file_handler = logging.FileHandler(log_file)
         file_handler.setLevel(logging.getLevelName(log_level))
         file_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
         file_handler.setFormatter(file_formatter)
         logging.getLogger().addHandler(file_handler)
 
-        # Console Handler (only for development)
         if self.environment == "development":
             console_handler = logging.StreamHandler()
             console_handler.setLevel(logging.getLevelName(log_level))
@@ -60,47 +64,46 @@ class CalculatorApp:
         print("  delete_history_file: Delete the history file")
         print("  exit: Exit the calculator")
 
-    def calculate_and_store(self, a, b, operation_name):
+    def calculate_and_store(self, value1, value2, operation_name):
         """Performs the calculation and stores it in history."""
-        logging.debug("Starting calculation with inputs: %s, %s for operation %s", a, b, operation_name)
         try:
-            a_decimal, b_decimal = map(Decimal, [a, b])
-            CommandClass = self.operation_mappings.get(operation_name)
+            value1_decimal, value2_decimal = map(Decimal, [value1, value2])
+            command_class = self.operation_mappings.get(operation_name)
 
-            if CommandClass:
-                command = CommandClass(a_decimal, b_decimal)
+            if command_class:
+                command = command_class(value1_decimal, value2_decimal)
                 calc = Calculator()
                 result = calc.compute(command)
-                
-                print(f"The result of {operation_name} between {a} and {b} is {result}")
+
+                print(f"The result of {operation_name} between {value1} and {value2} is {result}")
                 Calculations.add_calculation(command)
-                logging.info("Calculation %s with values %s, %s added to history.", operation_name, a, b)
+                logging.info("Calculation %s with values %s, %s added to history.", operation_name, value1, value2)
             else:
                 print(f"Unknown operation: {operation_name}")
                 logging.warning("Unknown operation requested: %s", operation_name)
         except ZeroDivisionError:
             print("Error: Division by zero.")
-            logging.error("Attempted division by zero in operation %s with values %s, %s", operation_name, a, b)
+            logging.error("Attempted division by zero in operation %s with values %s, %s", operation_name, value1, value2)
         except InvalidOperation:
-            print(f"Invalid number input: {a} or {b} is not a valid number.")
-            logging.error("Invalid input detected for operation %s: %s, %s", operation_name, a, b)
-        except Exception as e:
+            print(f"Invalid number input: {value1} or {value2} is not a valid number.")
+            logging.error("Invalid input detected for operation %s: %s, %s", operation_name, value1, value2)
+        except Exception as e:  # pylint: disable=broad-exception-caught
             print(f"An error occurred: {e}")
-            logging.error("An unexpected error occurred in operation %s with values %s, %s: %s", operation_name, a, b, e)
+            logging.error("An unexpected error occurred in operation %s with values %s, %s: %s", operation_name, value1, value2, e)
 
     def prompt_for_numbers(self, operation_name):
         """Prompts the user to input two numbers for the operation."""
         print(f"\nEnter two numbers for {operation_name}:")
         try:
-            a = input("Enter the first number: ")
-            b = input("Enter the second number: ")
-            return a, b
-        except Exception as e:
+            value1 = input("Enter the first number: ")
+            value2 = input("Enter the second number: ")
+            return value1, value2
+        except Exception as e: # pylint: disable=broad-exception-caught
             print(f"An error occurred: {e}")
-            logging.error(f"Error in number prompt: {e}")
+            logging.error("Error in number prompt: %s", e)
             return None, None
 
-    def interactive_calculator(self):
+    def interactive_calculator(self): # pylint: disable=too-many-branches
         """Runs the interactive calculator."""
         print("Welcome to the interactive calculator!")
         print("Type 'menu' to see the available commands or 'exit' to quit.")
@@ -113,7 +116,7 @@ class CalculatorApp:
                 print("Goodbye!")
                 logging.info("Calculator session ended by user.")
                 break
-            elif user_input == 'menu':
+            if user_input == 'menu':
                 self.display_menu()
             elif user_input == 'history':
                 history = Calculations.get_history()
@@ -138,12 +141,12 @@ class CalculatorApp:
                 Calculations.delete_history_file()
                 logging.info("Calculation history file deleted.")
             elif user_input in self.operation_mappings:
-                a, b = self.prompt_for_numbers(user_input)
-                if a and b:
-                    self.calculate_and_store(a, b, user_input)
+                value1, value2 = self.prompt_for_numbers(user_input)
+                if value1 and value2:
+                    self.calculate_and_store(value1, value2, user_input)
             else:
                 print("Invalid input. Please type 'menu' to see the available commands.")
-                logging.warning(f"Invalid input received: {user_input}")
+                logging.warning("Invalid input received: %s", user_input)
 
 if __name__ == "__main__":
     app = CalculatorApp()

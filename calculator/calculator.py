@@ -1,9 +1,16 @@
+"""
+Calculator module to perform operations using a dynamic plugin system and maintain a history of calculations.
+"""
 import os
 import importlib
 import logging
 from calculator.commands import Command, DivideCommand
 
 class Calculator:
+    """
+    The Calculator class handles the execution of arithmetic operations and manages plugins
+    for dynamically adding new commands. It also maintains a history of executed commands.
+    """
     _instance = None
 
     def __new__(cls, *args, **kwargs):

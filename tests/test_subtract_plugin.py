@@ -1,4 +1,8 @@
-import pytest
+"""
+Unit tests for the SubtractCommand plugin.
+These tests ensure the correctness of the SubtractCommand's execute method
+and the register function used for dynamic plugin loading.
+"""
 from calculator.plugins.subtract_plugin import SubtractCommand, register
 
 def test_subtract_command_execute():
