@@ -64,6 +64,14 @@ class CalculatorApp:
         print("  delete_history_file: Delete the history file")
         print("  exit: Exit the calculator")
 
+    def is_valid_number(self, value):
+        """Checks if the input value is a valid number."""
+        try:
+            Decimal(value)
+            return True
+        except InvalidOperation:
+            return False
+
     def calculate_and_store(self, value1, value2, operation_name):
         """Performs the calculation and stores it in history."""
         try:
@@ -92,18 +100,20 @@ class CalculatorApp:
             logging.error("An unexpected error occurred in operation %s with values %s, %s: %s", operation_name, value1, value2, e)
 
     def prompt_for_numbers(self, operation_name):
-        """Prompts the user to input two numbers for the operation."""
+        """Prompts the user to input two numbers for the operation, using LBYL to validate inputs."""
         print(f"\nEnter two numbers for {operation_name}:")
-        try:
-            value1 = input("Enter the first number: ")
-            value2 = input("Enter the second number: ")
-            return value1, value2
-        except Exception as e: # pylint: disable=broad-exception-caught
-            print(f"An error occurred: {e}")
-            logging.error("Error in number prompt: %s", e)
+        value1 = input("Enter the first number: ")
+        value2 = input("Enter the second number: ")
+
+        # LBYL check: Ensure both inputs are valid numbers before proceeding
+        if not self.is_valid_number(value1) or not self.is_valid_number(value2):
+            print(f"Invalid input: {value1} or {value2} is not a valid number.")
+            logging.error("Invalid input detected: %s, %s", value1, value2)
             return None, None
 
-    def interactive_calculator(self): # pylint: disable=too-many-branches
+        return value1, value2
+
+    def interactive_calculator(self):  # pylint: disable=too-many-branches
         """Runs the interactive calculator."""
         print("Welcome to the interactive calculator!")
         print("Type 'menu' to see the available commands or 'exit' to quit.")
