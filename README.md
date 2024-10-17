@@ -4,8 +4,13 @@ This project is a command-line calculator designed for educational purposes, sho
 
 ## Project Overview
 
-The calculator supports core arithmetic operations (addition, subtraction, multiplication, and division), manages a history of calculations, and includes enhanced error handling for invalid inputs and unknown operations. The project now includes a fully interactive REPL (Read-Eval-Print Loop) interface as well as extended logging capabilities configurable by environment variables. It also uses the Faker library for generating random test data and Pandas for loading, saving, clearing, and deleting calculation history.The project now also implements Singleton and Strategy Patterns to further enhance its scalability, flexibility, and maintainability. The Singleton Pattern is used to ensure a single instance of the Calculator class, while the Strategy Pattern allows for multiple division strategies, providing more robust and adaptable functionality.
+The calculator supports core arithmetic operations (addition, subtraction, multiplication, and division), manages a history of calculations, and includes enhanced error handling for invalid inputs and unknown operations. The project now includes a fully interactive REPL (Read-Eval-Print Loop) interface, allowing users to easily perform calculations, view history, and manage stored calculations. Additionally, extended logging capabilities are configurable through environment variables, enabling flexible logging setups for development and production environments.
 
+To ensure code quality, the project follows PEP 8 standards and has been thoroughly reviewed with Pylint. This helps maintain a clean and readable codebase that adheres to industry best practices.
+
+The project also utilizes the Faker library to generate random test data, and Pandas for loading, saving, clearing, and deleting calculation history. To enhance scalability, flexibility, and maintainability, the design incorporates both the Singleton and Strategy Patterns. The Singleton Pattern ensures that only one instance of the Calculator class exists throughout the application, while the Strategy Pattern supports multiple division strategies, providing a more robust and adaptable calculation functionality.
+
+Overall, this project demonstrates modularity, extensibility, and adherence to professional software development principles, making it suitable for educational purposes as well as real-world application.
 ## Features (Current Step)
 
 - **Basic Arithmetic Operations**:Supports addition, subtraction, multiplication, and division
@@ -113,6 +118,16 @@ Once inside the REPL, use the following commands to manage calculation history:
 To deactivate the virtual environment, use:
 ```bash
 deactivate
+```
+9. **Code Quality**: 
+This project follows PEP 8 standards, verified using [Pylint](https://pylint.pycqa.org/). All modules and test files have been reviewed and modified to ensure code quality and consistency with PEP 8 guidelines. 
+To check the code quality on your own, you can run:
+```bash
+pylint <module_or_directory_name>
+```
+For example, you can run Pylint on the entire project:
+```bash
+pylint calculator tests main.py
 ```
 
 ## Environment Variables
