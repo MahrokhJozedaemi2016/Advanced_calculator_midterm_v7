@@ -53,21 +53,40 @@ class Calculations:
         try:
             history_data = []
             for calc in cls.history:
-                # Use the class name of the command (like AddCommand, SubtractCommand) as the operation name
-                operation_name = calc.operation.__name__ # Get 'add', 'subtract', etc.
-                result = calc.perform()  # Use execute method to get the result of the operation
+                # Check if calc is a command object (e.g., AddCommand)
+                if hasattr(calc, 'execute'):
+                    operation_name = calc.__class__.__name__.replace('Command', '').lower()  # Get 'add', 'subtract', etc.
+                    result = calc.execute()
+                    value1 = calc.value1
+                    value2 = calc.value2
+                else:
+                    # In case it's a Calculation object
+                    operation_name = calc.operation.__name__
+                    result = calc.perform()
+                    value1 = calc.value1
+                    value2 = calc.value2
 
+                # Append the operation to history_data
                 history_data.append({
-                    'value1': calc.value1,
-                    'value2': calc.value2,
+                    'value1': value1,
+                    'value2': value2,
                     'operation': operation_name,
                     'result': result
                 })
 
-            df = pd.DataFrame(history_data)
-            df.to_csv(file_name, index=False)
-            print(f"History saved to {file_name}")
-            logging.info("Calculation history saved to %s", file_name)
+            # Debug print to check history_data before saving
+            print(f"Saving the following data to CSV: {history_data}")
+            logging.info("Saving the following data to CSV: %s", history_data)
+
+            # Writing data to CSV
+            if history_data:
+                df = pd.DataFrame(history_data)
+                df.to_csv(file_name, index=False)
+                print(f"History saved to {file_name}")
+                logging.info("Calculation history saved to %s", file_name)
+            else:
+                print("No data to save.")
+                logging.warning("No data available to save.")
         except (FileNotFoundError, IOError, pd.errors.EmptyDataError) as e:
             print(f"Error saving history: {e}")
             logging.error("Error saving calculation history to %s: %s", file_name, e)
