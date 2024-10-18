@@ -1,6 +1,7 @@
 """
 This module provides shared fixtures and setup functions for generating test data with Pytest.
 """
+
 from decimal import Decimal
 from faker import Faker
 from calculator.operations import add, subtract, multiply, divide
@@ -11,6 +12,9 @@ fake = Faker()
 def generate_test_data(num_records):
     """
     Generate random test data for arithmetic operations.
+
+    :param num_records: The number of records to generate.
+    :return: A generator yielding tuples of (value1, value2, operation_name, operation_func, expected)
     """
     # Define operation mappings for both Calculator and Calculation tests
     operation_mappings = {
@@ -27,8 +31,8 @@ def generate_test_data(num_records):
         operation_name = fake.random_element(elements=list(operation_mappings.keys()))
         operation_func = operation_mappings[operation_name]
 
-        # Ensure b is not zero for divide operations
-        if operation_func == divide: # pylint: disable=W0143
+        # Ensure value2 is not zero for divide operations
+        if operation_func is divide:
             value2 = Decimal('1') if value2 == Decimal('0') else value2
 
         try:
@@ -55,16 +59,15 @@ def pytest_generate_tests(metafunc):
     """
     Generate test parameters dynamically based on the number of records specified.
     """
-    # Check if the test is expecting any of the dynamically generated fixtures
-    if {"value1", "value2", "expected"}.intersection(set(metafunc.fixturenames)):
+    if {"value1", "value2", "expected"}.intersection(metafunc.fixturenames):
         num_records = metafunc.config.getoption("num_records")
         parameters = list(generate_test_data(num_records))
 
-        # Adjust parameters according to the requested test function
+        # Adjust parameters based on the requested test function
         if 'operation_name' in metafunc.fixturenames:
             modified_parameters = [(value1, value2, op_name, expected) for value1, value2, op_name, _, expected in parameters]
         else:
             modified_parameters = [(value1, value2, op_func, expected) for value1, value2, _, op_func, expected in parameters]
 
-        # Parametrize the test function with the generated data
+        # Parametrize the test function with generated test data
         metafunc.parametrize("value1,value2,operation,expected", modified_parameters)

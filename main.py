@@ -8,7 +8,6 @@ import os
 import logging
 from decimal import Decimal, InvalidOperation
 from dotenv import load_dotenv
-from calculator.calculator import Calculator
 from calculator.calculations import Calculations
 from calculator.commands import AddCommand, SubtractCommand, MultiplyCommand, DivideCommand
 
@@ -79,12 +78,17 @@ class CalculatorApp:
             command_class = self.operation_mappings.get(operation_name)
 
             if command_class:
+                # Create the command object using the provided values
                 command = command_class(value1_decimal, value2_decimal)
-                calc = Calculator()
-                result = calc.compute(command)
+                # Execute the command to perform the calculation
+                result = command.execute()
 
+                # Display the result
                 print(f"The result of {operation_name} between {value1} and {value2} is {result}")
+
+                # Store the command in the history, not the result
                 Calculations.add_calculation(command)
+
                 logging.info("Calculation %s with values %s, %s added to history.", operation_name, value1, value2)
             else:
                 print(f"Unknown operation: {operation_name}")
@@ -95,9 +99,18 @@ class CalculatorApp:
         except InvalidOperation:
             print(f"Invalid number input: {value1} or {value2} is not a valid number.")
             logging.error("Invalid input detected for operation %s: %s, %s", operation_name, value1, value2)
-        except Exception as e:  # pylint: disable=broad-exception-caught
-            print(f"An error occurred: {e}")
-            logging.error("An unexpected error occurred in operation %s with values %s, %s: %s", operation_name, value1, value2, e)
+        except AttributeError as ae:
+            print(f"An error occurred: {ae}")
+            logging.error("AttributeError occurred in operation %s with values %s, %s: %s", operation_name, value1, value2, ae)
+        except ValueError as ve:
+            if "Cannot divide by zero" in str(ve):
+                print("An error occurred: Cannot divide by zero.")
+            else:
+                print(f"An error occurred: {ve}")
+            logging.error("ValueError occurred in operation %s with values %s, %s: %s", operation_name, value1, value2, ve)
+        except TypeError as te:
+            print(f"TypeError occurred: {te}")
+            logging.error("TypeError occurred in operation %s with values %s, %s: %s", operation_name, value1, value2, te)
 
     def prompt_for_numbers(self, operation_name):
         """Prompts the user to input two numbers for the operation, using LBYL to validate inputs."""

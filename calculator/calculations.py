@@ -1,14 +1,13 @@
 """
 Module for managing a history of calculations and performing operations using Pandas.
 """
-
 import os
 import logging
 from decimal import Decimal
 from typing import List
 import pandas as pd
 from calculator.calculation import Calculation
-from calculator.operations import add, subtract, multiply, divide
+from calculator.utils import get_operation_mappings  # Import operation mappings from utils
 
 class Calculations:
     """Manages a history of calculations and supports history storage and retrieval."""
@@ -54,15 +53,9 @@ class Calculations:
         try:
             history_data = []
             for calc in cls.history:
-                if hasattr(calc, 'execute'):
-                    result = calc.execute()
-                    operation_name = calc.__class__.__name__.replace('Command', '').lower()
-                elif hasattr(calc, 'perform'):
-                    result = calc.perform()
-                    operation_name = calc.operation.__name__
-                else:
-                    result = None
-                    operation_name = "unknown"
+                # Use the class name of the command (like AddCommand, SubtractCommand) as the operation name
+                operation_name = calc.operation.__name__ # Get 'add', 'subtract', etc.
+                result = calc.perform()  # Use execute method to get the result of the operation
 
                 history_data.append({
                     'value1': calc.value1,
@@ -73,19 +66,16 @@ class Calculations:
 
             df = pd.DataFrame(history_data)
             df.to_csv(file_name, index=False)
+            print(f"History saved to {file_name}")
             logging.info("Calculation history saved to %s", file_name)
         except (FileNotFoundError, IOError, pd.errors.EmptyDataError) as e:
+            print(f"Error saving history: {e}")
             logging.error("Error saving calculation history to %s: %s", file_name, e)
 
     @classmethod
     def load_history(cls, file_name='calculation_history.csv'):
         """Load the history of calculations from a CSV file."""
-        operation_mappings = {
-            'add': add,
-            'subtract': subtract,
-            'multiply': multiply,
-            'divide': divide
-        }
+        operation_mappings = get_operation_mappings()  # Use utility function for operation mappings
 
         if not os.path.exists(file_name):
             logging.warning("No history file found with name '%s'.", file_name)
@@ -93,9 +83,11 @@ class Calculations:
 
         try:
             data = pd.read_csv(file_name)
+            print(f"Loaded data from CSV: {data}")  # Debugging line to check CSV content
             cls.history.clear()
             for _, row in data.iterrows():
                 operation_func = operation_mappings.get(row['operation'])
+                print(f"Mapping operation: {row['operation']} -> {operation_func}")  # Debugging line
                 if operation_func:
                     calculation = Calculation(Decimal(row['value1']), Decimal(row['value2']), operation_func)
                     cls.history.append(calculation)
