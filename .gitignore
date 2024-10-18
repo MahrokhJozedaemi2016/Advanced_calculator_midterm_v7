@@ -6,3 +6,4 @@
 app.log
 .DS_Store
 test_debug.py
+venv/
