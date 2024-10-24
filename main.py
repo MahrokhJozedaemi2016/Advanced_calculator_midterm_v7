@@ -31,15 +31,22 @@ class CalculatorApp:
     def setup_logging(self):
         """Set up logging configuration based on environment variables."""
         logging.getLogger().handlers = []
-        log_file = os.getenv("LOG_FILE", "app.log")
+        
+        # Ensure the logs directory exists
+        log_dir = 'logs'
+        os.makedirs(log_dir, exist_ok=True)
+        log_file = os.path.join(log_dir, 'app.log')
+
         log_level = os.getenv("LOG_LEVEL", "INFO").upper()
 
+        # File handler for logging to file
         file_handler = logging.FileHandler(log_file)
         file_handler.setLevel(logging.getLevelName(log_level))
         file_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
         file_handler.setFormatter(file_formatter)
         logging.getLogger().addHandler(file_handler)
 
+        # Console handler for development environment
         if self.environment == "development":
             console_handler = logging.StreamHandler()
             console_handler.setLevel(logging.getLevelName(log_level))
@@ -78,15 +85,13 @@ class CalculatorApp:
             command_class = self.operation_mappings.get(operation_name)
 
             if command_class:
-                # Create the command object using the provided values
                 command = command_class(value1_decimal, value2_decimal)
-                # Execute the command to perform the calculation
                 result = command.execute()
 
                 # Display the result
                 print(f"The result of {operation_name} between {value1} and {value2} is {result}")
 
-                # Store the command in the history, not the result
+                # Store the command in the history
                 Calculations.add_calculation(command)
 
                 logging.info("Calculation %s with values %s, %s added to history.", operation_name, value1, value2)
@@ -155,13 +160,16 @@ class CalculatorApp:
                 print("Calculation history cleared.")
                 logging.info("Calculation history cleared.")
             elif user_input == 'save_history':
-                Calculations.save_history()
+                # Save history in 'data' directory
+                Calculations.save_history(file_name='data/calculation_history.csv')
                 logging.info("Calculation history saved to file.")
             elif user_input == 'load_history':
-                Calculations.load_history()
+                # Load history from 'data' directory
+                Calculations.load_history(file_name='data/calculation_history.csv')
                 logging.info("Calculation history loaded from file.")
             elif user_input == 'delete_history_file':
-                Calculations.delete_history_file()
+                # Delete history file from 'data' directory
+                Calculations.delete_history_file(file_name='data/calculation_history.csv')
                 logging.info("Calculation history file deleted.")
             elif user_input in self.operation_mappings:
                 value1, value2 = self.prompt_for_numbers(user_input)
@@ -172,5 +180,7 @@ class CalculatorApp:
                 logging.warning("Invalid input received: %s", user_input)
 
 if __name__ == "__main__":
+    # Ensure the data directory exists
+    os.makedirs('data', exist_ok=True)
     app = CalculatorApp()
     app.interactive_calculator()
