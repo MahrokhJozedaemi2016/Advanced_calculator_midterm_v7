@@ -11,11 +11,11 @@ Additional design patterns and software development practices, such as PEP 8 com
    
 2. **Plugin System with Factory Pattern**:  
 - **Purpose**: Provides flexibility to dynamically load and integrate new commands as plugins, reducing the need for core code modifications.
-- **Application**:  Plugins represent separate commands dynamically imported by the Calculator through a load_plugin method. This follows the Factory Pattern, allowing the Calculator to act as a factory that produces command objects based on the loaded plugins.
+- **Application**:  Plugins represent separate commands dynamically imported by the Calculator through a load_plugin method. This follows the **Factory** Pattern, allowing the Calculator to act as a factory that produces command objects based on the loaded plugins. For example, the add_plugin.py dynamically adds new arithmetic commands.   
 
 3. **Facade Pattern**:    
 - **Purpose**:Simplifies interactions with complex data handling, especially with additional data management features introduced in this step, such as using Pandas for history operations.  
-- **Application**:The Calculations class serves as a Facade for history management, offering a simplified interface for storing, loading, saving, and deleting calculation records. This implementation isolates Pandas-specific code within the class, creating a cleaner and more user-friendly interface.  
+- **Application**:The Calculations class serves as a **Facade** for history management, offering a simplified interface for storing, loading, saving, and deleting calculation records. This implementation isolates Pandas-specific code within the class, creating a cleaner and more user-friendly interface.  
 
 4. **Singleton Pattern**:   
 - **Purpose**: Ensures only one instance of the Calculator class exists, providing a consistent calculator instance across the application.  
@@ -23,7 +23,7 @@ Additional design patterns and software development practices, such as PEP 8 com
 
 5. **Strategy Pattern**:    
 - **Purpose**: Allows selection from multiple division algorithms, enhancing flexibility in division operations.  
-- **Application**: The DivideCommand class employs the Strategy Pattern by allowing users to select between standard floating-point division and integer division. This approach enables different division behaviors to be used without changing the class’s core logic.  
+- **Application**: The DivideCommand class employs the **Strategy** Pattern by allowing users to select between standard floating-point division and integer division. This approach enables different division behaviors to be used without changing the class’s core logic.  
 
 6. **Encapsulation and Modular Design**:    
 - **Purpose**: Segregates different aspects of functionality into specific modules, following modularity and encapsulation principles.  
@@ -40,8 +40,7 @@ Additional design patterns and software development practices, such as PEP 8 com
 - **Purpose**:Ensures the robustness of the REPL by handling various user errors (e.g., invalid numbers, division by zero, unknown operations)  
 - **Application**:Error handling is centralized within the main.py REPL interface, where exception management is consolidated to promote modularity and ensure consistent error feedback.  
 - **Error Handling and Design Principles: LBYL and EAFP**:  
-In this project, error handling is implemented using two complementary principles:   
-- **Look Before You Leap (LBYL)** and **Easier to Ask for Forgiveness than Permission (EAFP)**:  
+In this project, error handling is implemented using two complementary principles:    
 
 1.  **Look Before You Leap (LBYL)**:  
 The LBYL approach is about pre-checking conditions before performing actions that could raise an error. In the main.py file, we apply this principle in areas such as input validation and command checking:  
@@ -80,6 +79,6 @@ By combining LBYL and EAFP, the project ensures robust error handling, optimizes
 
 2. **PEP 8 Compliance with Pylint**:   
 - **Purpose**: Ensures consistent code style and readability across all project files.  
-- **Aplicatiom**: The project is fully PEP 8 compliant. Pylint is used to enforce high-quality, maintainable code and to detect any deviations from the standards.  
+- **Aplication**: The project is fully PEP 8 compliant. Pylint is used to enforce high-quality, maintainable code and to detect any deviations from the standards.  
 ## Concluding Note  
 This documentation provides an overview of the design patterns implemented in the Advanced Python Calculator project, highlighting its commitment to clean code, modular architecture, and scalable design. By adhering to established design principles such as SOLID, DRY, and Separation of Concerns, this project demonstrates a robust and maintainable codebase that can effectively support complex functionalities.
