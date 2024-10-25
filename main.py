@@ -67,7 +67,6 @@ class CalculatorApp:
         print("  clear_history: Clear calculation history")
         print("  save_history: Save history to a file")
         print("  load_history: Load history from a file")
-        print("  delete_history_file: Delete the history file")
         print("  exit: Exit the calculator")
 
     def is_valid_number(self, value):
@@ -149,8 +148,15 @@ class CalculatorApp:
             elif user_input == 'history':
                 history = Calculations.get_history()
                 if history:
-                    for idx, operation in enumerate(history, 1):
-                        print(f"{idx}: {operation}")
+                    for idx, calculation in enumerate(history, 1):
+                        # Display operation with result for each calculation
+                        if hasattr(calculation, 'execute'):
+                            result = calculation.execute()
+                            operation = calculation.__class__.__name__.replace("Command", "").lower()
+                        else:
+                            result = calculation.perform()
+                            operation = calculation.operation.__name__
+                        print(f"{idx}: {calculation.value1} {operation} {calculation.value2} = {result}")
                     logging.info("Displayed calculation history.")
                 else:
                     print("No history available.")
@@ -167,10 +173,6 @@ class CalculatorApp:
                 # Load history from 'data' directory
                 Calculations.load_history(file_name='data/calculation_history.csv')
                 logging.info("Calculation history loaded from file.")
-            elif user_input == 'delete_history_file':
-                # Delete history file from 'data' directory
-                Calculations.delete_history_file(file_name='data/calculation_history.csv')
-                logging.info("Calculation history file deleted.")
             elif user_input in self.operation_mappings:
                 value1, value2 = self.prompt_for_numbers(user_input)
                 if value1 and value2:

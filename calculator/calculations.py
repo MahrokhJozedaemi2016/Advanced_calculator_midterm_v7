@@ -65,18 +65,18 @@ class Calculations:
             # Prepare the new history data to be appended
             new_history_data = []
             for calc in cls.history:
-                # Format the operation name correctly
+                # Format the operation name and result
                 if hasattr(calc, 'execute'):
                     operation_name = f"{calc.value1} {calc.__class__.__name__.replace('Command', '').lower()} {calc.value2}"
-                    result = calc.execute()
+                    result = calc.execute()  # Store only the numeric result
                 else:
                     operation_name = f"{calc.value1} {calc.operation.__name__} {calc.value2}"
-                    result = calc.perform()
+                    result = calc.perform()  # Store only the numeric result
 
                 # Append the operation and result to new history data
                 new_history_data.append({
                     'operation': operation_name,
-                    'result': result
+                    'result': result  # Save only the numeric result
                 })
 
             # Convert the new history to a DataFrame and concatenate with existing data
@@ -115,15 +115,3 @@ class Calculations:
             logging.info("Calculation history loaded from %s", file_name)
         except (FileNotFoundError, IOError, pd.errors.EmptyDataError) as e:
             logging.error("Error loading calculation history from %s: %s", file_name, e)
-
-    @classmethod
-    def delete_history_file(cls, file_name='data/calculation_history.csv'):
-        """Delete the calculation history file."""
-        try:
-            if os.path.exists(file_name):
-                os.remove(file_name)
-                logging.info("File '%s' has been deleted.", file_name)
-            else:
-                logging.warning("File '%s' does not exist.", file_name)
-        except OSError as e:
-            logging.error("Error deleting file '%s': %s", file_name, e)
