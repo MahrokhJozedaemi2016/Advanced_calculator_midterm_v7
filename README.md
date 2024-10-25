@@ -17,7 +17,7 @@ Overall, this project demonstrates modularity, extensibility, and adherence to p
 - **Calculation History**:Stores calculation history and allows retrieval, saving, loading, clearing, and deletion within the REPL interface.
 - **Advanced Data Handling with Pandas**: Utilizes Pandas for efficient data reading and writing to CSV files to manage calculation history.
 - **Enhanced Logging**:Uses environment-specific logging configurations (e.g., logging only to a file in production and to both console and file in development).
-- **Exception Handling**: Manages errors for division by zero, invalid inputs, and unknown operations with appropriate error messages.
+- **Error Handling**: Manages errors with both "Look Before You Leap" (LBYL) and "Easier to Ask for Forgiveness than Permission" (EAFP) approaches for divide-by-zero, invalid inputs, and unknown operations.    
 - **Faker Library Integration**:Uses Faker to generate random test data for enhanced testing. 
 - **Parameterized Testing**: Supports dynamic test case generation with a custom --num_records option for Pytest.
 - **Command-Line Interface (REPL)**: Provides an interactive interface for users to input commands, perform calculations, view history, and clear history.
@@ -32,39 +32,7 @@ Overall, this project demonstrates modularity, extensibility, and adherence to p
 
 The project is organized into the following directory structure:
 
-Advanced_calculator_midterm/
-├── calculator/
-│    ├── __init__.py                # Initialization file for Calculator package
-│    ├── calculator.py              # Main Calculator class
-│    ├── calculation.py             # Represents individual calculations
-│    ├── calculations.py            # Manages history of calculations, including save/load features
-│    ├── commands.py                # Command classes for arithmetic operations
-│    ├── operations.py              # Arithmetic operations functions
-│    └── plugins/
-│        ├── __init__.py            # Initialization file for plugins
-│        ├── add_plugin.py          # Plugin for addition operation
-│        ├── subtract_plugin.py     # Plugin for subtraction operation
-│        ├── multiply_plugin.py     # Plugin for multiplication operation
-│        └── divide_plugin.py       # Plugin for division operation
-├── tests/
-│    ├── __init__.py
-│    ├── conftest.py                # Configuration and fixture file for pytest
-│    ├── test_calculator.py         # Tests for the main Calculator class
-│    ├── test_calculation.py        # Tests for the Calculation class
-│    ├── test_calculations.py       # Tests for the Calculations history management
-│    ├── test_main.py               # Tests for main.py functionality
-│    ├── test_commands.py           # Tests for command classes
-│    ├── test_add_plugin.py         # Tests for add plugin
-│    ├── test_subtract_plugin.py    # Tests for subtract plugin
-│    ├── test_multiply_plugin.py    # Tests for multiply plugin
-│    ├── test_divide_plugin.py      # Tests for divide plugin
-│    └── test_operations.py         # Tests for arithmetic operations
-├── main.py                         # Entry point for the REPL interface
-├── .gitignore                      # Files and folders ignored by Git
-├── .pylintrc                       # Configuration file for pylint
-├── pytest.ini                      # Configuration file for Pytest
-├── README.md                       # Project documentation
-└── requirements.txt                # List of project dependencies
+Advanced_calculator_midterm_v7/ ├── .github/workflows/ │ └── python-app.yml # GitHub Actions CI setup for running tests ├── .pytest_cache/ # Pytest cache ├── calculator/ # Main calculator module │ ├── init.py # Initialization file for Calculator package │ ├── calculation.py # Represents individual calculations │ ├── calculations.py # Manages history of calculations, including save/load features │ ├── calculator.py # Main Calculator class │ ├── commands.py # Command classes for arithmetic operations │ ├── operations.py # Arithmetic operations functions │ ├── plugins/ # Plugins for calculator commands │ │ ├── init.py # Initialization file for plugins │ │ ├── add_plugin.py # Plugin for addition operation │ │ ├── subtract_plugin.py # Plugin for subtraction operation │ │ ├── multiply_plugin.py # Plugin for multiplication operation │ │ └── divide_plugin.py # Plugin for division operation │ └── utils.py # Utility functions such as operation mappings ├── data/ │ └── calculation_history.csv # Stores calculation history in CSV format ├── logs/ │ └── app.log # Log file for application logs ├── tests/ # Unit tests for calculator │ ├── conftest.py # Configuration and fixture file for pytest │ ├── test_add_plugin.py # Tests for add plugin │ ├── test_calculation.py # Tests for the Calculation class │ ├── test_calculations.py # Tests for the Calculations history management │ ├── test_calculator.py # Tests for the main Calculator class │ ├── test_commands.py # Tests for command classes │ ├── test_divide_plugin.py # Tests for divide plugin │ ├── test_helpers.py # Helper functions for tests │ ├── test_main.py # Tests for main.py functionality │ ├── test_multiply_plugin.py # Tests for multiply plugin │ ├── test_operations.py # Tests for arithmetic operations │ └── test_subtract_plugin.py # Tests for subtract plugin ├── venv/ # Python virtual environment ├── .coverage # Coverage file generated by pytest-cov ├── .gitignore # Files and folders ignored by Git ├── .pylintrc # Configuration file for pylint ├── pytest.ini # Configuration file for Pytest ├── README.md # Project documentation └── requirements.txt # List of project dependencies
 
 ## Setup Instructions
 
@@ -72,7 +40,7 @@ To set up and run this project, follow these steps:
 
 1. **Clone the Repository**:
     ```bash
-    git clone git@github.com:MahrokhJozedaemi2016/Advanced_calculator_midterm.git
+    git clone git@github.com:MahrokhJozedaemi2016/Advanced_calculator_midterm_v7.git
     cd Advanced_calculator_midterm
     ```
 
@@ -109,11 +77,11 @@ LOG_FILE=app.log
    python3 main.py
    ```
 8. **Calculation History Management Commands**:
-Once inside the REPL, use the following commands to manage calculation history:
-**.Save_history**: Saves the current history to a CSV file.
-**.load_history**: Loads calculation history from a CSV file.
-**.clear_history**: Clears the current calculation history.
-**.delete_history**: Deletes the history CSV file.
+Once inside the REPL, use the following commands to manage calculation history:    
+**.Save_history**: Saves the current history to a CSV file.    
+**.load_history**: Loads calculation history from a CSV file.    
+**.clear_history**: Clears the current calculation history.    
+**.delete_history**: Deletes the history CSV file.   
 
 To deactivate the virtual environment, use:
 ```bash
