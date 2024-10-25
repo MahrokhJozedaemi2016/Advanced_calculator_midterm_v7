@@ -78,7 +78,7 @@ class CalculatorApp:
             return False
 
     def calculate_and_store(self, value1, value2, operation_name):
-        """Performs the calculation and stores it in history."""
+        """Performs the calculation, stores it in history, and automatically saves it to CSV."""
         try:
             value1_decimal, value2_decimal = map(Decimal, [value1, value2])
             command_class = self.operation_mappings.get(operation_name)
@@ -93,7 +93,10 @@ class CalculatorApp:
                 # Store the command in the history
                 Calculations.add_calculation(command)
 
-                logging.info("Calculation %s with values %s, %s added to history.", operation_name, value1, value2)
+                # Automatically save the calculation history after each operation
+                Calculations.save_history(file_name='data/calculation_history.csv')
+
+                logging.info("Calculation %s with values %s, %s added to history and saved.", operation_name, value1, value2)
             else:
                 print(f"Unknown operation: {operation_name}")
                 logging.warning("Unknown operation requested: %s", operation_name)
@@ -166,7 +169,7 @@ class CalculatorApp:
                 print("Calculation history cleared.")
                 logging.info("Calculation history cleared.")
             elif user_input == 'save_history':
-                # Save history in 'data' directory
+                # Save history in 'data' directory manually if needed
                 Calculations.save_history(file_name='data/calculation_history.csv')
                 logging.info("Calculation history saved to file.")
             elif user_input == 'load_history':
