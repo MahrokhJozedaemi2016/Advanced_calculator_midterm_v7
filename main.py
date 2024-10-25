@@ -31,7 +31,7 @@ class CalculatorApp:
     def setup_logging(self):
         """Set up logging configuration based on environment variables."""
         logging.getLogger().handlers = []
-        
+
         # Ensure the logs directory exists
         log_dir = 'logs'
         os.makedirs(log_dir, exist_ok=True)

@@ -1,102 +1,113 @@
-2024-10-24 13:39:17,313 - INFO - Logging configured for development environment.
-2024-10-24 13:39:17,314 - INFO - CalculatorApp initialized in development environment.
-2024-10-24 13:39:17,314 - INFO - Interactive calculator started.
-2024-10-24 13:44:32,691 - DEBUG - Executing AddCommand: 3 + 3 = 6
-2024-10-24 13:44:32,692 - DEBUG - Executing AddCommand: 3 + 3 = 6
-2024-10-24 13:44:32,692 - DEBUG - Adding calculation to history: Add 3 and 3 = 6
-2024-10-24 13:44:32,692 - DEBUG - Executing AddCommand: 3 + 3 = 6
-2024-10-24 13:44:32,692 - INFO - Calculation add with values 3, 3 added to history.
-2024-10-24 13:44:40,144 - DEBUG - Executing DivideCommand with strategy default_division: 4 / 2 = 2
-2024-10-24 13:44:40,144 - DEBUG - Executing DivideCommand with strategy default_division: 4 / 2 = 2
-2024-10-24 13:44:40,144 - DEBUG - Adding calculation to history: Divide 4 by 2 = 2
-2024-10-24 13:44:40,144 - DEBUG - Executing DivideCommand with strategy default_division: 4 / 2 = 2
-2024-10-24 13:44:40,144 - INFO - Calculation divide with values 4, 2 added to history.
-2024-10-24 13:44:55,086 - DEBUG - Executing SubtractCommand: 7 - 4 = 3
-2024-10-24 13:44:55,088 - DEBUG - Executing SubtractCommand: 7 - 4 = 3
-2024-10-24 13:44:55,087 - DEBUG - Adding calculation to history: Subtract 7 and 4 = 3
-2024-10-24 13:44:55,088 - DEBUG - Executing SubtractCommand: 7 - 4 = 3
-2024-10-24 13:44:55,088 - INFO - Calculation subtract with values 7, 4 added to history.
-2024-10-24 13:45:03,035 - DEBUG - Executing MultiplyCommand: 4 * 6 = 24
-2024-10-24 13:45:03,036 - DEBUG - Executing MultiplyCommand: 4 * 6 = 24
-2024-10-24 13:45:03,036 - DEBUG - Adding calculation to history: Multiply 4 and 6 = 24
-2024-10-24 13:45:03,036 - DEBUG - Executing MultiplyCommand: 4 * 6 = 24
-2024-10-24 13:45:03,036 - INFO - Calculation multiply with values 4, 6 added to history.
-2024-10-24 13:48:18,107 - DEBUG - Executing AddCommand: 3 + 3 = 6
-2024-10-24 13:48:18,107 - DEBUG - Executing DivideCommand with strategy default_division: 4 / 2 = 2
-2024-10-24 13:48:18,108 - DEBUG - Executing SubtractCommand: 7 - 4 = 3
-2024-10-24 13:48:18,108 - DEBUG - Executing MultiplyCommand: 4 * 6 = 24
-2024-10-24 13:48:18,108 - INFO - Saving the following data to CSV: [{'value1': Decimal('3'), 'value2': Decimal('3'), 'operation': 'add', 'result': Decimal('6')}, {'value1': Decimal('4'), 'value2': Decimal('2'), 'operation': 'divide', 'result': Decimal('2')}, {'value1': Decimal('7'), 'value2': Decimal('4'), 'operation': 'subtract', 'result': Decimal('3')}, {'value1': Decimal('4'), 'value2': Decimal('6'), 'operation': 'multiply', 'result': Decimal('24')}]
-2024-10-24 13:48:18,118 - INFO - Calculation history saved to data/calculation_history.csv
-2024-10-24 13:48:18,118 - INFO - Calculation history saved to file.
-2024-10-24 14:00:32,178 - INFO - Calculator session ended by user.
-2024-10-24 14:00:45,528 - INFO - Logging configured for development environment.
-2024-10-24 14:00:45,528 - INFO - CalculatorApp initialized in development environment.
-2024-10-24 14:00:45,528 - INFO - Interactive calculator started.
-2024-10-24 14:00:55,871 - DEBUG - Executing AddCommand: 2 + 2 = 4
-2024-10-24 14:00:55,871 - DEBUG - Executing AddCommand: 2 + 2 = 4
-2024-10-24 14:00:55,871 - DEBUG - Adding calculation to history: Add 2 and 2 = 4
-2024-10-24 14:00:55,871 - DEBUG - Executing AddCommand: 2 + 2 = 4
-2024-10-24 14:00:55,871 - INFO - Calculation add with values 2, 2 added to history.
-2024-10-24 14:01:03,348 - DEBUG - Executing DivideCommand with strategy default_division: 3 / 3 = 1
-2024-10-24 14:01:03,349 - DEBUG - Executing DivideCommand with strategy default_division: 3 / 3 = 1
-2024-10-24 14:01:03,348 - DEBUG - Adding calculation to history: Divide 3 by 3 = 1
-2024-10-24 14:01:03,349 - DEBUG - Executing DivideCommand with strategy default_division: 3 / 3 = 1
-2024-10-24 14:01:03,349 - INFO - Calculation divide with values 3, 3 added to history.
-2024-10-24 14:01:08,435 - DEBUG - Executing SubtractCommand: 4 - 4 = 0
-2024-10-24 14:01:08,436 - DEBUG - Executing SubtractCommand: 4 - 4 = 0
-2024-10-24 14:01:08,436 - DEBUG - Adding calculation to history: Subtract 4 and 4 = 0
-2024-10-24 14:01:08,436 - DEBUG - Executing SubtractCommand: 4 - 4 = 0
-2024-10-24 14:01:08,436 - INFO - Calculation subtract with values 4, 4 added to history.
-2024-10-24 14:01:15,275 - DEBUG - Executing MultiplyCommand: 5 * 5 = 25
-2024-10-24 14:01:15,276 - DEBUG - Executing MultiplyCommand: 5 * 5 = 25
-2024-10-24 14:01:15,276 - DEBUG - Adding calculation to history: Multiply 5 and 5 = 25
-2024-10-24 14:01:15,276 - DEBUG - Executing MultiplyCommand: 5 * 5 = 25
-2024-10-24 14:01:15,276 - INFO - Calculation multiply with values 5, 5 added to history.
-2024-10-24 14:01:23,616 - DEBUG - Executing AddCommand: 2 + 2 = 4
-2024-10-24 14:01:23,616 - DEBUG - Executing DivideCommand with strategy default_division: 3 / 3 = 1
-2024-10-24 14:01:23,616 - DEBUG - Executing SubtractCommand: 4 - 4 = 0
-2024-10-24 14:01:23,617 - DEBUG - Executing MultiplyCommand: 5 * 5 = 25
-2024-10-24 14:01:23,617 - INFO - Saving the following data to CSV: [{'operation': '2 add 2', 'result': Decimal('4')}, {'operation': '3 divide 3', 'result': Decimal('1')}, {'operation': '4 subtract 4', 'result': Decimal('0')}, {'operation': '5 multiply 5', 'result': Decimal('25')}]
-2024-10-24 14:01:23,625 - INFO - Calculation history saved to data/calculation_history.csv
-2024-10-24 14:01:23,625 - INFO - Calculation history saved to file.
-2024-10-24 14:09:14,183 - INFO - Calculator session ended by user.
-2024-10-24 14:09:27,599 - INFO - Logging configured for development environment.
-2024-10-24 14:09:27,599 - INFO - CalculatorApp initialized in development environment.
-2024-10-24 14:09:27,599 - INFO - Interactive calculator started.
-2024-10-24 14:09:34,320 - DEBUG - Executing AddCommand: 1 + 1 = 2
-2024-10-24 14:09:34,321 - DEBUG - Executing AddCommand: 1 + 1 = 2
-2024-10-24 14:09:34,321 - DEBUG - Adding calculation to history: Add 1 and 1 = 2
-2024-10-24 14:09:34,321 - DEBUG - Executing AddCommand: 1 + 1 = 2
-2024-10-24 14:09:34,321 - INFO - Calculation add with values 1, 1 added to history.
-2024-10-24 14:09:39,690 - DEBUG - Executing AddCommand: 2 + 2 = 4
-2024-10-24 14:09:39,691 - DEBUG - Executing AddCommand: 2 + 2 = 4
-2024-10-24 14:09:39,691 - DEBUG - Adding calculation to history: Add 2 and 2 = 4
-2024-10-24 14:09:39,691 - DEBUG - Executing AddCommand: 2 + 2 = 4
-2024-10-24 14:09:39,691 - INFO - Calculation add with values 2, 2 added to history.
-2024-10-24 14:09:44,432 - DEBUG - Executing AddCommand: 3 + 3 = 6
-2024-10-24 14:09:44,433 - DEBUG - Executing AddCommand: 3 + 3 = 6
-2024-10-24 14:09:44,433 - DEBUG - Adding calculation to history: Add 3 and 3 = 6
-2024-10-24 14:09:44,433 - DEBUG - Executing AddCommand: 3 + 3 = 6
-2024-10-24 14:09:44,433 - INFO - Calculation add with values 3, 3 added to history.
-2024-10-24 14:09:47,694 - DEBUG - Executing AddCommand: 4 + 4 = 8
-2024-10-24 14:09:47,694 - DEBUG - Executing AddCommand: 4 + 4 = 8
-2024-10-24 14:09:47,694 - DEBUG - Adding calculation to history: Add 4 and 4 = 8
-2024-10-24 14:09:47,694 - DEBUG - Executing AddCommand: 4 + 4 = 8
-2024-10-24 14:09:47,694 - INFO - Calculation add with values 4, 4 added to history.
-2024-10-24 14:09:54,850 - DEBUG - Executing AddCommand: 1 + 1 = 2
-2024-10-24 14:09:54,850 - DEBUG - Executing AddCommand: 2 + 2 = 4
-2024-10-24 14:09:54,850 - DEBUG - Executing AddCommand: 3 + 3 = 6
-2024-10-24 14:09:54,850 - DEBUG - Executing AddCommand: 4 + 4 = 8
-2024-10-24 14:09:54,850 - INFO - Saving the following data to CSV: [{'operation': '1 add 1', 'result': Decimal('2')}, {'operation': '2 add 2', 'result': Decimal('4')}, {'operation': '3 add 3', 'result': Decimal('6')}, {'operation': '4 add 4', 'result': Decimal('8')}]
-2024-10-24 14:09:54,859 - INFO - Calculation history saved to data/calculation_history.csv
-2024-10-24 14:09:54,859 - INFO - Calculation history saved to file.
-2024-10-24 14:10:35,126 - ERROR - Attempted to divide by zero: 10 / 0
-2024-10-24 14:10:35,126 - ERROR - ValueError occurred in operation divide with values 10, 0: Cannot divide by zero.
-2024-10-24 14:10:50,803 - DEBUG - Executing AddCommand: 1 + 1 = 2
-2024-10-24 14:10:50,803 - DEBUG - Executing AddCommand: 2 + 2 = 4
-2024-10-24 14:10:50,803 - DEBUG - Executing AddCommand: 3 + 3 = 6
-2024-10-24 14:10:50,804 - DEBUG - Executing AddCommand: 4 + 4 = 8
-2024-10-24 14:10:50,804 - INFO - Saving the following data to CSV: [{'operation': '1 add 1', 'result': Decimal('2')}, {'operation': '2 add 2', 'result': Decimal('4')}, {'operation': '3 add 3', 'result': Decimal('6')}, {'operation': '4 add 4', 'result': Decimal('8')}]
-2024-10-24 14:10:50,808 - INFO - Calculation history saved to data/calculation_history.csv
-2024-10-24 14:10:50,808 - INFO - Calculation history saved to file.
-2024-10-24 14:11:31,828 - INFO - Calculator session ended by user.
+
+2024-10-24 19:01:54,843 - INFO - Logging configured for development environment.
+2024-10-24 19:01:54,843 - INFO - CalculatorApp initialized in development environment.
+2024-10-24 19:01:54,843 - INFO - Interactive calculator started.
+2024-10-24 19:02:02,578 - DEBUG - Executing AddCommand: 6 + 2 = 8
+2024-10-24 19:02:02,579 - DEBUG - Executing AddCommand: 6 + 2 = 8
+2024-10-24 19:02:02,579 - DEBUG - Adding calculation to history: Add 6 and 2 = 8
+2024-10-24 19:02:02,579 - DEBUG - Executing AddCommand: 6 + 2 = 8
+2024-10-24 19:02:02,579 - INFO - Calculation add with values 6, 2 added to history.
+2024-10-24 19:02:08,112 - DEBUG - Executing DivideCommand with strategy default_division: 6 / 2 = 3
+2024-10-24 19:02:08,113 - DEBUG - Executing DivideCommand with strategy default_division: 6 / 2 = 3
+2024-10-24 19:02:08,113 - DEBUG - Adding calculation to history: Divide 6 by 2 = 3
+2024-10-24 19:02:08,113 - DEBUG - Executing DivideCommand with strategy default_division: 6 / 2 = 3
+2024-10-24 19:02:08,113 - INFO - Calculation divide with values 6, 2 added to history.
+2024-10-24 19:02:15,461 - DEBUG - Executing SubtractCommand: 6 - 2 = 4
+2024-10-24 19:02:15,461 - DEBUG - Executing SubtractCommand: 6 - 2 = 4
+2024-10-24 19:02:15,461 - DEBUG - Adding calculation to history: Subtract 6 and 2 = 4
+2024-10-24 19:02:15,461 - DEBUG - Executing SubtractCommand: 6 - 2 = 4
+2024-10-24 19:02:15,461 - INFO - Calculation subtract with values 6, 2 added to history.
+2024-10-24 19:02:22,387 - DEBUG - Executing MultiplyCommand: 6 * 2 = 12
+2024-10-24 19:02:22,387 - DEBUG - Executing MultiplyCommand: 6 * 2 = 12
+2024-10-24 19:02:22,387 - DEBUG - Adding calculation to history: Multiply 6 and 2 = 12
+2024-10-24 19:02:22,387 - DEBUG - Executing MultiplyCommand: 6 * 2 = 12
+2024-10-24 19:02:22,387 - INFO - Calculation multiply with values 6, 2 added to history.
+2024-10-24 19:02:31,395 - DEBUG - Executing AddCommand: 8 + 4 = 12
+2024-10-24 19:02:31,395 - DEBUG - Executing AddCommand: 8 + 4 = 12
+2024-10-24 19:02:31,395 - DEBUG - Adding calculation to history: Add 8 and 4 = 12
+2024-10-24 19:02:31,395 - DEBUG - Executing AddCommand: 8 + 4 = 12
+2024-10-24 19:02:31,396 - INFO - Calculation add with values 8, 4 added to history.
+2024-10-24 19:02:37,875 - DEBUG - Executing DivideCommand with strategy default_division: 8 / 4 = 2
+2024-10-24 19:02:37,875 - DEBUG - Executing DivideCommand with strategy default_division: 8 / 4 = 2
+2024-10-24 19:02:37,875 - DEBUG - Adding calculation to history: Divide 8 by 4 = 2
+2024-10-24 19:02:37,875 - DEBUG - Executing DivideCommand with strategy default_division: 8 / 4 = 2
+2024-10-24 19:02:37,876 - INFO - Calculation divide with values 8, 4 added to history.
+2024-10-24 19:02:42,795 - WARNING - Invalid input received: divide8
+2024-10-24 19:02:49,958 - ERROR - Attempted to divide by zero: 8 / 0
+2024-10-24 19:02:49,958 - ERROR - ValueError occurred in operation divide with values 8, 0: Cannot divide by zero.
+2024-10-24 19:03:00,370 - DEBUG - Executing MultiplyCommand: 8 * 2 = 16
+2024-10-24 19:03:00,370 - DEBUG - Executing MultiplyCommand: 8 * 2 = 16
+2024-10-24 19:03:00,370 - DEBUG - Adding calculation to history: Multiply 8 and 2 = 16
+2024-10-24 19:03:00,370 - DEBUG - Executing MultiplyCommand: 8 * 2 = 16
+2024-10-24 19:03:00,370 - INFO - Calculation multiply with values 8, 2 added to history.
+2024-10-24 19:03:06,415 - DEBUG - Executing SubtractCommand: 8 - 3 = 5
+2024-10-24 19:03:06,416 - DEBUG - Executing SubtractCommand: 8 - 3 = 5
+2024-10-24 19:03:06,416 - DEBUG - Adding calculation to history: Subtract 8 and 3 = 5
+2024-10-24 19:03:06,416 - DEBUG - Executing SubtractCommand: 8 - 3 = 5
+2024-10-24 19:03:06,416 - INFO - Calculation subtract with values 8, 3 added to history.
+2024-10-24 19:03:14,358 - DEBUG - Executing AddCommand: 10 + 2 = 12
+2024-10-24 19:03:14,358 - DEBUG - Executing AddCommand: 10 + 2 = 12
+2024-10-24 19:03:14,358 - DEBUG - Adding calculation to history: Add 10 and 2 = 12
+2024-10-24 19:03:14,359 - DEBUG - Executing AddCommand: 10 + 2 = 12
+2024-10-24 19:03:14,359 - INFO - Calculation add with values 10, 2 added to history.
+2024-10-24 19:03:21,205 - DEBUG - Executing DivideCommand with strategy default_division: 10 / 2 = 5
+2024-10-24 19:03:21,206 - DEBUG - Executing DivideCommand with strategy default_division: 10 / 2 = 5
+2024-10-24 19:03:21,205 - DEBUG - Adding calculation to history: Divide 10 by 2 = 5
+2024-10-24 19:03:21,206 - DEBUG - Executing DivideCommand with strategy default_division: 10 / 2 = 5
+2024-10-24 19:03:21,206 - INFO - Calculation divide with values 10, 2 added to history.
+2024-10-24 19:03:29,921 - DEBUG - Executing MultiplyCommand: 10 * 5 = 50
+2024-10-24 19:03:29,921 - DEBUG - Executing MultiplyCommand: 10 * 5 = 50
+2024-10-24 19:03:29,921 - DEBUG - Adding calculation to history: Multiply 10 and 5 = 50
+2024-10-24 19:03:29,922 - DEBUG - Executing MultiplyCommand: 10 * 5 = 50
+2024-10-24 19:03:29,922 - INFO - Calculation multiply with values 10, 5 added to history.
+2024-10-24 19:03:36,837 - DEBUG - Executing SubtractCommand: 10 - 2 = 8
+2024-10-24 19:03:36,837 - DEBUG - Executing SubtractCommand: 10 - 2 = 8
+2024-10-24 19:03:36,837 - DEBUG - Adding calculation to history: Subtract 10 and 2 = 8
+2024-10-24 19:03:36,838 - DEBUG - Executing SubtractCommand: 10 - 2 = 8
+2024-10-24 19:03:36,838 - INFO - Calculation subtract with values 10, 2 added to history.
+2024-10-24 19:03:42,734 - WARNING - Invalid input received: unkhown
+2024-10-24 19:03:48,254 - DEBUG - Executing AddCommand: 12 + 6 = 18
+2024-10-24 19:03:48,254 - DEBUG - Executing AddCommand: 12 + 6 = 18
+2024-10-24 19:03:48,254 - DEBUG - Adding calculation to history: Add 12 and 6 = 18
+2024-10-24 19:03:48,255 - DEBUG - Executing AddCommand: 12 + 6 = 18
+2024-10-24 19:03:48,255 - INFO - Calculation add with values 12, 6 added to history.
+2024-10-24 19:03:53,707 - DEBUG - Executing SubtractCommand: 12 - 6 = 6
+2024-10-24 19:03:53,708 - DEBUG - Executing SubtractCommand: 12 - 6 = 6
+2024-10-24 19:03:53,708 - DEBUG - Adding calculation to history: Subtract 12 and 6 = 6
+2024-10-24 19:03:53,708 - DEBUG - Executing SubtractCommand: 12 - 6 = 6
+2024-10-24 19:03:53,708 - INFO - Calculation subtract with values 12, 6 added to history.
+2024-10-24 19:03:58,574 - DEBUG - Executing DivideCommand with strategy default_division: 12 / 3 = 4
+2024-10-24 19:03:58,574 - DEBUG - Executing DivideCommand with strategy default_division: 12 / 3 = 4
+2024-10-24 19:03:58,574 - DEBUG - Adding calculation to history: Divide 12 by 3 = 4
+2024-10-24 19:03:58,574 - DEBUG - Executing DivideCommand with strategy default_division: 12 / 3 = 4
+2024-10-24 19:03:58,574 - INFO - Calculation divide with values 12, 3 added to history.
+2024-10-24 19:04:07,956 - DEBUG - Executing MultiplyCommand: 12 * 2 = 24
+2024-10-24 19:04:07,957 - DEBUG - Executing MultiplyCommand: 12 * 2 = 24
+2024-10-24 19:04:07,957 - DEBUG - Adding calculation to history: Multiply 12 and 2 = 24
+2024-10-24 19:04:07,957 - DEBUG - Executing MultiplyCommand: 12 * 2 = 24
+2024-10-24 19:04:07,958 - INFO - Calculation multiply with values 12, 2 added to history.
+2024-10-24 19:04:14,918 - DEBUG - Executing SubtractCommand: 12 - 3 = 9
+2024-10-24 19:04:14,919 - DEBUG - Executing SubtractCommand: 12 - 3 = 9
+2024-10-24 19:04:14,919 - DEBUG - Adding calculation to history: Subtract 12 and 3 = 9
+2024-10-24 19:04:14,919 - DEBUG - Executing SubtractCommand: 12 - 3 = 9
+2024-10-24 19:04:14,919 - INFO - Calculation subtract with values 12, 3 added to history.
+2024-10-24 19:04:20,528 - DEBUG - Executing AddCommand: 6 + 2 = 8
+2024-10-24 19:04:20,528 - DEBUG - Executing DivideCommand with strategy default_division: 6 / 2 = 3
+2024-10-24 19:04:20,528 - DEBUG - Executing SubtractCommand: 6 - 2 = 4
+2024-10-24 19:04:20,528 - DEBUG - Executing MultiplyCommand: 6 * 2 = 12
+2024-10-24 19:04:20,528 - DEBUG - Executing AddCommand: 8 + 4 = 12
+2024-10-24 19:04:20,528 - DEBUG - Executing DivideCommand with strategy default_division: 8 / 4 = 2
+2024-10-24 19:04:20,528 - DEBUG - Executing MultiplyCommand: 8 * 2 = 16
+2024-10-24 19:04:20,528 - DEBUG - Executing SubtractCommand: 8 - 3 = 5
+2024-10-24 19:04:20,528 - DEBUG - Executing AddCommand: 10 + 2 = 12
+2024-10-24 19:04:20,529 - DEBUG - Executing DivideCommand with strategy default_division: 10 / 2 = 5
+2024-10-24 19:04:20,529 - DEBUG - Executing MultiplyCommand: 10 * 5 = 50
+2024-10-24 19:04:20,529 - DEBUG - Executing SubtractCommand: 10 - 2 = 8
+2024-10-24 19:04:20,529 - DEBUG - Executing AddCommand: 12 + 6 = 18
+2024-10-24 19:04:20,529 - DEBUG - Executing SubtractCommand: 12 - 6 = 6
+2024-10-24 19:04:20,529 - DEBUG - Executing DivideCommand with strategy default_division: 12 / 3 = 4
+2024-10-24 19:04:20,529 - DEBUG - Executing MultiplyCommand: 12 * 2 = 24
+2024-10-24 19:04:20,529 - DEBUG - Executing SubtractCommand: 12 - 3 = 9
+2024-10-24 19:04:20,538 - INFO - Calculation history saved to data/calculation_history.csv
+2024-10-24 19:04:20,538 - INFO - Calculation history saved to file.
+2024-10-24 19:04:54,339 - INFO - Calculator session ended by user.

@@ -1,0 +1,18 @@
+operation,result
+6 add 2,8
+6 divide 2,3
+6 subtract 2,4
+6 multiply 2,12
+8 add 4,12
+8 divide 4,2
+8 multiply 2,16
+8 subtract 3,5
+10 add 2,12
+10 divide 2,5
+10 multiply 5,50
+10 subtract 2,8
+12 add 6,18
+12 subtract 6,6
+12 divide 3,4
+12 multiply 2,24
+12 subtract 3,9

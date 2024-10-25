@@ -56,44 +56,46 @@ class Calculations:
             # Ensure that the 'data' directory exists
             os.makedirs(os.path.dirname(file_name), exist_ok=True)
 
-            history_data = []
+            # Load any existing history from the file (if it exists)
+            if os.path.exists(file_name):
+                existing_data = pd.read_csv(file_name)
+            else:
+                existing_data = pd.DataFrame(columns=['operation', 'result'])
+
+            # Prepare the new history data to be appended
+            new_history_data = []
             for calc in cls.history:
-                # Check if calc is a command object (e.g., AddCommand)
+                # Format the operation name correctly
                 if hasattr(calc, 'execute'):
                     operation_name = f"{calc.value1} {calc.__class__.__name__.replace('Command', '').lower()} {calc.value2}"
                     result = calc.execute()
                 else:
-                    # In case it's a Calculation object
                     operation_name = f"{calc.value1} {calc.operation.__name__} {calc.value2}"
                     result = calc.perform()
 
-                # Append the operation and result to history_data
-                history_data.append({
+                # Append the operation and result to new history data
+                new_history_data.append({
                     'operation': operation_name,
                     'result': result
                 })
 
-            # Debug print to check history_data before saving
-            print(f"Saving the following data to CSV: {history_data}")
-            logging.info("Saving the following data to CSV: %s", history_data)
+            # Convert the new history to a DataFrame and concatenate with existing data
+            new_df = pd.DataFrame(new_history_data)
+            full_history = pd.concat([existing_data, new_df], ignore_index=True)
 
-            # Writing data to CSV
-            if history_data:
-                df = pd.DataFrame(history_data)
-                df.to_csv(file_name, index=False)
-                print(f"History saved to {file_name}")
-                logging.info("Calculation history saved to %s", file_name)
-            else:
-                print("No data to save.")
-                logging.warning("No data available to save.")
+            # Remove duplicates by keeping only the last occurrence of each operation
+            full_history.drop_duplicates(inplace=True)
+
+            # Write the full history (existing + new) back to the CSV
+            full_history.to_csv(file_name, index=False)
+            logging.info("Calculation history saved to %s", file_name)
         except (FileNotFoundError, IOError, pd.errors.EmptyDataError) as e:
-            print(f"Error saving history: {e}")
             logging.error("Error saving calculation history to %s: %s", file_name, e)
 
     @classmethod
     def load_history(cls, file_name='data/calculation_history.csv'):
         """Load the history of calculations from a CSV file."""
-        operation_mappings = get_operation_mappings()  # Use utility function for operation mappings
+        operation_mappings = get_operation_mappings()
 
         if not os.path.exists(file_name):
             logging.warning("No history file found with name '%s'.", file_name)
@@ -101,15 +103,15 @@ class Calculations:
 
         try:
             data = pd.read_csv(file_name)
-            print(f"Loaded data from CSV: {data}")  # Debugging line to check CSV content
+            logging.info("Loaded data from CSV: %s", data)
             cls.history.clear()
             for _, row in data.iterrows():
-                operation_func = operation_mappings.get(row['operation'].split(' ')[1])
-                print(f"Mapping operation: {row['operation']} -> {operation_func}")  # Debugging line
+                operation_split = row['operation'].split(' ')
+                value1, operation, value2 = Decimal(operation_split[0]), operation_split[1], Decimal(operation_split[2])
+                operation_func = operation_mappings.get(operation)
                 if operation_func:
-                    value1, value2 = map(Decimal, row['operation'].split(' ')[::2])
                     calculation = Calculation(value1, value2, operation_func)
-                    cls.history.append(calculation)
+                    cls.history.append(calculation)  # Add to history without executing
             logging.info("Calculation history loaded from %s", file_name)
         except (FileNotFoundError, IOError, pd.errors.EmptyDataError) as e:
             logging.error("Error loading calculation history from %s: %s", file_name, e)
