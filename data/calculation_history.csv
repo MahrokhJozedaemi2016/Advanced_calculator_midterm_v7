@@ -1,10 +1,15 @@
 operation,result
-4 add 3,7.0
-3 divide 2,1.5
-1 subtract 2,-1.0
-4 multiply 3,12.0
-5 add 3,8.0
-10 subtract 2,8.0
-4 multiply 5,20.0
-20 divide 4,5.0
-1 divide 1,1.0
+4 add 4,8
+4 divide 2,2
+4 multiply 3,12
+3 subtract 4,-1
+2 add 2,4
+2 multiply 2,4
+2 divide 2,1
+2 subtract 2,0
+10 add 5,15
+5 add 3,8
+10 subtract 2,8
+4 multiply 5,20
+20 divide 4,5
+1 divide 1,1

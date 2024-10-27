@@ -146,36 +146,16 @@ class CalculatorApp:
                 print("Goodbye!")
                 logging.info("Calculator session ended by user.")
                 break
-            elif user_input == 'menu':
+            if user_input == 'menu':
                 self.display_menu()
             elif user_input == 'history':
-                history = Calculations.get_history()
-                if history:
-                    for idx, calculation in enumerate(history, 1):
-                        # Retrieve result directly if loaded from history, else calculate it
-                        if hasattr(calculation, 'execute'):
-                            result = calculation.execute()
-                            operation_name = calculation.__class__.__name__.replace("Command", "").lower()
-                        else:
-                            result = calculation.result  # Loaded from file
-                            operation_name = calculation.operation.__name__.lower()
-                        print(f"{idx}: {calculation.value1} {operation_name} {calculation.value2} = {result}")
-                    logging.info("Displayed calculation history.")
-                else:
-                    print("No history available.")
-                    logging.info("User requested history but none is available.")
+                self.display_history()
             elif user_input == 'clear_history':
-                Calculations.clear_history()
-                print("Calculation history cleared.")
-                logging.info("Calculation history cleared.")
+                self.clear_history()
             elif user_input == 'save_history':
-                # Save history in 'data' directory manually if needed
-                Calculations.save_history(file_name='data/calculation_history.csv')
-                logging.info("Calculation history saved to file.")
+                self.save_history()
             elif user_input == 'load_history':
-                # Load history from 'data' directory
-                Calculations.load_history(file_name='data/calculation_history.csv')
-                logging.info("Calculation history loaded from file.")
+                self.load_history()
             elif user_input in self.operation_mappings:
                 value1, value2 = self.prompt_for_numbers(user_input)
                 if value1 and value2:
@@ -183,6 +163,41 @@ class CalculatorApp:
             else:
                 print("Invalid input. Please type 'menu' to see the available commands.")
                 logging.warning("Invalid input received: %s", user_input)
+
+    def clear_history(self):
+        """Clears the calculation history."""
+        Calculations.clear_history()
+        print("Calculation history cleared.")
+        logging.info("Calculation history cleared.")
+
+    def save_history(self):
+        """Saves the calculation history to a file."""
+        Calculations.save_history(file_name='data/calculation_history.csv')
+        print("Calculation history saved to file.")
+        logging.info("Calculation history saved to file.")
+
+    def load_history(self):
+        """Loads the calculation history from a file."""
+        Calculations.load_history(file_name='data/calculation_history.csv')
+        print("Calculation history loaded from file.")
+        logging.info("Calculation history loaded from file.")
+
+    def display_history(self):
+        """Displays the calculation history."""
+        history = Calculations.get_history()
+        if history:
+            for idx, calculation in enumerate(history, 1):
+                if hasattr(calculation, 'execute'):
+                    result = calculation.execute()
+                    operation_name = calculation.__class__.__name__.replace("Command", "").lower()
+                else:
+                    result = calculation.result
+                    operation_name = calculation.operation.__name__.lower()
+                print(f"{idx}: {calculation.value1} {operation_name} {calculation.value2} = {result}")
+            logging.info("Displayed calculation history.")
+        else:
+            print("No history available.")
+            logging.info("No calculation history available.")
 
 if __name__ == "__main__":
     # Ensure the data directory exists
