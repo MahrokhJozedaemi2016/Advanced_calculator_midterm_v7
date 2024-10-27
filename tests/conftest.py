@@ -2,9 +2,12 @@
 This module provides shared fixtures and setup functions for generating test data with Pytest.
 """
 
+import os
 from decimal import Decimal
 from faker import Faker
+import pytest
 from calculator.operations import add, subtract, multiply, divide
+
 
 # Initialize Faker for generating random data
 fake = Faker()
@@ -68,3 +71,12 @@ def pytest_generate_tests(metafunc):
                 (value1, value2, operation_func, expected) for value1, value2, _, operation_func, expected in parameters
             ]
             metafunc.parametrize("value1,value2,operation_func,expected", modified_parameters)
+
+# Fixture to automatically delete test_calculation_history.csv after tests
+@pytest.fixture(autouse=True)
+def cleanup_test_files():
+    """Remove test_calculation_history.csv if it exists after tests complete."""
+    yield  # Run the tests first
+    test_file = 'data/test_calculation_history.csv'
+    if os.path.exists(test_file):
+        os.remove(test_file)
