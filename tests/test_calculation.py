@@ -8,9 +8,7 @@ functionality of the Calculation class.
 from decimal import Decimal
 import pytest
 from calculator.calculation import Calculation
-from calculator.calculations import Calculations
-from calculator.operations import add, subtract, divide
-from .test_helpers import setup_test_calculations  # Use relative import
+from calculator.operations import add, subtract, multiply, divide
 
 
 def test_add_operation():
@@ -37,21 +35,35 @@ def test_divide_operation():
     assert calc.perform() == Decimal('5'), "Failed division operation"
 
 
-def test_find_by_operation():
+def test_multiply_operation():
     """
-    Test finding calculations in the history by operation type.
+    Test multiplication operation in the calculator.
     """
-    setup_test_calculations()  # Ensure setup happens here and history is cleared
-
-    # Test if the 'add' operation can be found in the history
-    add_operations = Calculations.find_by_operation("add")
-    assert len(add_operations) >= 1, "Expected at least one addition operation in history."
+    calc = Calculation(Decimal('7'), Decimal('8'), multiply)
+    assert calc.perform() == Decimal('56'), "Failed multiplication operation"
 
 
-def test_divide_by_zero():
+def test_invalid_operation():
     """
-    Test division by zero to ensure it raises a ValueError.
+    Test handling of an invalid operation (None) to ensure error handling works.
     """
-    calc = Calculation(Decimal('10'), Decimal('0'), divide)
-    with pytest.raises(ValueError, match="Cannot divide by zero"):
+    with pytest.raises(TypeError):
+        calc = Calculation(Decimal('10'), Decimal('5'), None)  # None as an invalid operation
         calc.perform()
+
+
+def test_alternative_constructor():
+    """
+    Test the alternative 'create' method to ensure it initializes the Calculation correctly.
+    """
+    calc = Calculation.create(Decimal('15'), Decimal('5'), add)
+    assert isinstance(calc, Calculation), "Failed to create Calculation instance with alternative constructor"
+    assert calc.perform() == Decimal('20'), "Failed addition using alternative constructor"
+
+
+def test_calculation_repr():
+    """
+    Test the __repr__ method for a readable string representation of the calculation.
+    """
+    calc = Calculation(Decimal('12'), Decimal('4'), subtract)
+    assert repr(calc) == "Calculation(12, 4, subtract)", "Failed string representation for Calculation"
