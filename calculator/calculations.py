@@ -108,10 +108,10 @@ class Calculations:
             for _, row in data.iterrows():
                 operation_split = row['operation'].split(' ')
                 value1, operation, value2 = Decimal(operation_split[0]), operation_split[1], Decimal(operation_split[2])
-                
+
                 # Retrieve the operation function from the mappings
                 operation_func = operation_mappings.get(operation.lower())
-                
+
                 if operation_func:
                     # Create a Calculation object and set the result directly from the CSV
                     calculation = Calculation(value1, value2, operation_func)
@@ -120,4 +120,3 @@ class Calculations:
             logging.info("Calculation history loaded from %s", file_name)
         except (FileNotFoundError, IOError, pd.errors.EmptyDataError) as e:
             logging.error("Error loading calculation history from %s: %s", file_name, e)
-
