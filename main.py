@@ -146,20 +146,20 @@ class CalculatorApp:
                 print("Goodbye!")
                 logging.info("Calculator session ended by user.")
                 break
-            if user_input == 'menu':
+            elif user_input == 'menu':
                 self.display_menu()
             elif user_input == 'history':
                 history = Calculations.get_history()
                 if history:
                     for idx, calculation in enumerate(history, 1):
-                        # Display operation with result for each calculation
+                        # Retrieve result directly if loaded from history, else calculate it
                         if hasattr(calculation, 'execute'):
                             result = calculation.execute()
-                            operation = calculation.__class__.__name__.replace("Command", "").lower()
+                            operation_name = calculation.__class__.__name__.replace("Command", "").lower()
                         else:
-                            result = calculation.perform()
-                            operation = calculation.operation.__name__
-                        print(f"{idx}: {calculation.value1} {operation} {calculation.value2} = {result}")
+                            result = calculation.result  # Loaded from file
+                            operation_name = calculation.operation.__name__.lower()
+                        print(f"{idx}: {calculation.value1} {operation_name} {calculation.value2} = {result}")
                     logging.info("Displayed calculation history.")
                 else:
                     print("No history available.")
