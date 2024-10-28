@@ -4,19 +4,26 @@ It tests various functions to verify their expected output.
 """
 
 from decimal import Decimal
+from unittest.mock import patch
 import pytest
 from main import CalculatorApp
-from calculator.calculations import Calculations  # Added import
-from calculator.commands import AddCommand, SubtractCommand, MultiplyCommand, DivideCommand  # Added import
+from calculator.calculations import Calculations
+from calculator.commands import AddCommand, SubtractCommand, MultiplyCommand, DivideCommand
 
-# Test calculate_and_store with various inputs
+# Apply a fixture to mock save_history for all tests
+@pytest.fixture(autouse=True)
+def mock_save_history():
+    """Fixture to automatically mock save_history to prevent file writes during tests."""
+    with patch.object(Calculations, 'save_history', return_value=None):
+        yield
+
 @pytest.mark.parametrize("a_string, b_string, operation_string, expected_string", [
     ("5", "3", 'add', "The result of add between 5 and 3 is 8"),
     ("10", "2", 'subtract', "The result of subtract between 10 and 2 is 8"),
     ("4", "5", 'multiply', "The result of multiply between 4 and 5 is 20"),
     ("20", "4", 'divide', "The result of divide between 20 and 4 is 5"),
     ("1", "1", 'divide', "The result of divide between 1 and 1 is 1"),
-    ("1", "0", 'divide', "An error occurred: Cannot divide by zero."),  # Updated expected output
+    ("1", "0", 'divide', "An error occurred: Cannot divide by zero."),
     ("9", "3", 'unknown', "Unknown operation: unknown."),
     ("a", "3", 'add', "Invalid number input: a or 3 is not a valid number."),
     ("5", "b", 'subtract', "Invalid number input: 5 or b is not a valid number.")
@@ -28,8 +35,6 @@ def test_calculate_and_store(a_string, b_string, operation_string, expected_stri
     captured = capsys.readouterr().out.strip().rstrip(".")
     assert captured == expected_string.rstrip(".")
 
-
-# Test display_menu output
 def test_display_menu(capsys):
     """Test the display_menu function outputs the correct menu."""
     app = CalculatorApp()
@@ -49,8 +54,6 @@ def test_display_menu(capsys):
     )
     assert captured == expected_menu
 
-
-# Test is_valid_number function for both valid and invalid inputs
 @pytest.mark.parametrize("value, expected", [
     ("5", True),
     ("3.14", True),
@@ -63,15 +66,12 @@ def test_is_valid_number(value, expected):
     app = CalculatorApp()
     assert app.is_valid_number(value) == expected
 
-
-# Test prompt_for_numbers function with both valid and invalid inputs
 def test_prompt_for_numbers_valid(mocker):
     """Test prompt_for_numbers with valid inputs."""
     app = CalculatorApp()
     mocker.patch("builtins.input", side_effect=["3", "4"])
     value1, value2 = app.prompt_for_numbers("add")
     assert value1 == "3" and value2 == "4"
-
 
 def test_prompt_for_numbers_invalid(mocker, capsys):
     """Test prompt_for_numbers with invalid inputs."""
@@ -82,8 +82,6 @@ def test_prompt_for_numbers_invalid(mocker, capsys):
     assert value1 is None and value2 is None
     assert "Invalid input: a or 4 is not a valid number." in captured
 
-
-# Test interactive_calculator loop with 'exit' command
 def test_interactive_calculator_exit(mocker, capsys):
     """Test the interactive_calculator method for handling 'exit' command."""
     app = CalculatorApp()
@@ -92,8 +90,6 @@ def test_interactive_calculator_exit(mocker, capsys):
     captured = capsys.readouterr().out.strip()
     assert "Goodbye!" in captured
 
-
-# Test clear_history functionality
 def test_clear_history(mocker, capsys):
     """Test the clear_history command clears the history."""
     app = CalculatorApp()
@@ -102,8 +98,6 @@ def test_clear_history(mocker, capsys):
     captured = capsys.readouterr().out.strip()
     assert "Calculation history cleared." in captured
 
-
-# Test save_history functionality
 def test_save_history(mocker, capsys):
     """Test the save_history command."""
     app = CalculatorApp()
@@ -112,8 +106,6 @@ def test_save_history(mocker, capsys):
     captured = capsys.readouterr().out.strip()
     assert "Calculation history saved to file." in captured
 
-
-# Test load_history functionality
 def test_load_history(mocker, capsys):
     """Test the load_history command."""
     app = CalculatorApp()
@@ -122,8 +114,6 @@ def test_load_history(mocker, capsys):
     captured = capsys.readouterr().out.strip()
     assert "Calculation history loaded from file." in captured
 
-
-# Additional tests for checking history retrieval and display
 def test_display_history(mocker, capsys):
     """Test that history displays correctly after calculations are stored."""
     app = CalculatorApp()
